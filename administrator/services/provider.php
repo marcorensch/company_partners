@@ -2,7 +2,7 @@
 
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_company_partners
+ * @subpackage  com_companypartners
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -18,7 +18,7 @@ use Joomla\CMS\Extension\Service\Provider\MVCFactory;
 use Joomla\CMS\HTML\Registry;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use NXD\Component\CompanyPartners\Administrator\Extension\CompanyPartnersComponent;
+use NXD\Component\Companypartners\Administrator\Extension\CompanypartnersComponent;
 /**
  * The Company Partners service provider.
  * https://github.com/joomla/joomla-cms/pull/20217
@@ -36,14 +36,14 @@ return new class implements ServiceProviderInterface {
 
     public function register(Container $container)
     {
-        $container->registerServiceProvider(new CategoryFactory('\\NXD\\Component\\CompanyPartners'));
-        $container->registerServiceProvider(new MVCFactory('\\NXD\\Component\\CompanyPartners'));
-        $container->registerServiceProvider(new ComponentDispatcherFactory('\\NXD\\Component\\CompanyPartners'));
+        $container->registerServiceProvider(new CategoryFactory('\\NXD\\Component\\Companypartners'));
+        $container->registerServiceProvider(new MVCFactory('\\NXD\\Component\\Companypartners'));
+        $container->registerServiceProvider(new ComponentDispatcherFactory('\\NXD\\Component\\Companypartners'));
         $container->set(
 
             ComponentInterface::class,
             function (Container $container) {
-                $component = new FoosComponent($container->get(ComponentDispatcherFactoryInterface::class));
+                $component = new CompanypartnersComponent($container->get(ComponentDispatcherFactoryInterface::class));
                 $component->setRegistry($container->get(Registry::class));
                 return $component;
             }

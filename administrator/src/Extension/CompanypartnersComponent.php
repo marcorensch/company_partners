@@ -2,13 +2,13 @@
 
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_company_partners
+ * @subpackage  com_companypartners
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\CompanyPartners\Administrator\Extension;
+namespace NXD\Component\Companypartners\Administrator\Extension;
 
 defined('JPATH_PLATFORM') or die;
 
@@ -17,15 +17,15 @@ use Joomla\CMS\Categories\CategoryServiceTrait;
 use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
-use NXD\Component\CompanyPartners\Administrator\Service\HTML\AdministratorService;
+use NXD\Component\Companypartners\Administrator\Service\HTML\AdministratorService;
 use Psr\Container\ContainerInterface;
 
 /**
- * Component class for com_company_partners
+ * Component class for com_companypartners
  *
  * @since  1.0.0
  */
-class CompanyPartnersComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface
+class CompanypartnersComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface
 
 {
     use CategoryServiceTrait;
@@ -47,6 +47,6 @@ class CompanyPartnersComponent extends MVCComponent implements BootableExtension
 
     public function boot(ContainerInterface $container)
     {
-        $this->getRegistry()->register('companypartnersadministrator', new AdministratorService);
+        $this->getRegistry()->register('Companypartnersadministrator', new AdministratorService);
     }
 }

@@ -1,13 +1,13 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_company_partners
+ * @subpackage  com_companypartners
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\CompanyPartners\Administrator\Controller;
+namespace NXD\Component\Companypartners\Administrator\Controller;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
@@ -34,7 +34,7 @@ class DisplayController extends BaseController{
      *
      * @return   BaseController | bool  This object to support chaining.
      * @since   1.0.0
-     * @throws   \Exception
+     * @throws   Exception
      */
     public function display($cachable = false, $urlparams = array()){
         parent::display($cachable, $urlparams);

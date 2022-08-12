@@ -2,7 +2,7 @@
 
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_company_partners
+ * @subpackage  com_companypartners
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -19,7 +19,7 @@ use Joomla\CMS\Log\Log;
  *
  * @since  1.0.0
  */
-class Com_CompanyPartnersInstallerScript
+class Com_CompanypartnersInstallerScript
 
 {
     /**
@@ -48,7 +48,7 @@ class Com_CompanyPartnersInstallerScript
     public function install($parent): bool
 
     {
-        echo Text::_('COM_FOOS_INSTALLERSCRIPT_INSTALL');
+        echo Text::_('COM_COMPANYPARTNERS_INSTALLERSCRIPT_INSTALL');
         return true;
     }
 
@@ -62,7 +62,7 @@ class Com_CompanyPartnersInstallerScript
 
     public function uninstall($parent): bool
     {
-        echo Text::_('COM_COMPANY_PARTNERS_INSTALLERSCRIPT_UNINSTALL');
+        echo Text::_('COM_COMPANYPARTNERS_INSTALLERSCRIPT_UNINSTALL');
         return true;
     }
 
@@ -77,7 +77,7 @@ class Com_CompanyPartnersInstallerScript
 
     public function update($parent): bool
     {
-        echo Text::_('COM_COMPANY_PARTNERS_INSTALLERSCRIPT_UPDATE');
+        echo Text::_('COM_COMPANYPARTNERS_INSTALLERSCRIPT_UPDATE');
         return true;
     }
 
@@ -114,7 +114,7 @@ class Com_CompanyPartnersInstallerScript
                 return false;
             }
         }
-        echo Text::_('COM_COMPANY_PARTNERS_INSTALLERSCRIPT_PREFLIGHT');
+        echo Text::_('COM_COMPANYPARTNERS_INSTALLERSCRIPT_PREFLIGHT');
 
         return true;
     }
@@ -131,7 +131,7 @@ class Com_CompanyPartnersInstallerScript
 
     public function postflight($type, $parent)
     {
-        echo Text::_('COM_COMPANY_PARTNERS_INSTALLERSCRIPT_POSTFLIGHT');
+        echo Text::_('COM_COMPANYPARTNERS_INSTALLERSCRIPT_POSTFLIGHT');
         return true;
 
     }
