@@ -12,14 +12,22 @@
     <namespace path="src">NXD\Component\Companypartners</namespace>
     <scriptfile>script.php</scriptfile>
 
+    <!-- Frond-end files -->
+    <files folder="components/com_companypartners">
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
+
+    <!-- Back-end files -->
     <administration>
         <!-- Menu entries -->
         <menu view="partners">COM_COMPANYPARTNERS</menu>
         <submenu>
             <menu link="option=com_companypartners">COM_COMPANYPARTNERS</menu>
         </submenu>
+
+        <!-- Core files -->
         <files folder="administrator/components/com_companypartners">
-            <filename>companypartners.xml</filename>
             <folder>services</folder>
             <folder>src</folder>
             <folder>tmpl</folder>
