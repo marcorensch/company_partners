@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="component" method="upgrade">
+    <name>COM_COMPANY_PARTNERS</name>
+    <creationDate>August 2022</creationDate>
+    <author>nx-designs | Marco Rensch</author>
+    <authorEmail>suport@nx-designs.ch</authorEmail>
+    <authorUrl>https://www.nx-designs.ch</authorUrl>
+    <copyright>Copyright ©2022 by nx-designs</copyright>
+    <license>GNU General Public License version 2 or later;</license>
+    <version>1.0.0</version>
+    <description>COM_COMPANY_PARTNERS_XML_DESCRIPTION</description>
+    <namespace>NXD\Component\CompanyPartners</namespace>
+    <scriptfile>script.php</scriptfile>
+
+    <administration>
+        <!-- Menu entries -->
+        <menu view="foos">COM_COMPANY_PARTNERS</menu>
+        <submenu>
+            <menu link="option=com_company_partners">COM_COMPANY_PARTNERS</menu>
+        </submenu>
+        <files folder="administrator/components/com_company_partners">
+            <filename>company_partners.xml</filename>
+            <folder>services</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+        </files>
+    </administration>
+
+    <changelogurl>https://updates.nx-designs.ch/com_company_partners/changelog.xml</changelogurl>
+    <updateservers>
+        <server type="extension" name="Company Partners Updates">https://updates.nx-designs.ch/com_company_partners/update.xml</server>
+    </updateservers>
+    <dlid prefix="dlid=" suffix="" />
+
+</extension>
