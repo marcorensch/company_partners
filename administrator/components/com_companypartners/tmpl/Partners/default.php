@@ -8,4 +8,8 @@
  */
 defined('_JEXEC') or die;
 ?>
-Hello Company Partners!
+<?php
+foreach($this->items as $item)
+{
+    echo $item->name . '<br>';
+}

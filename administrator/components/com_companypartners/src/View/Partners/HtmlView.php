@@ -29,8 +29,11 @@ class HtmlView extends BaseHtmlView
      *
      * @since   __BUMP_VERSION__
      */
+    protected $items;
+
     public function display($tpl = null): void
     {
+        $this->items = $this->get('Items');
         parent::display($tpl);
     }
 }

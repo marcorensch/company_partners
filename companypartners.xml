@@ -11,6 +11,23 @@
     <description>COM_COMPANYPARTNERS_XML_DESCRIPTION</description>
     <namespace path="src">NXD\Component\Companypartners</namespace>
     <scriptfile>script.php</scriptfile>
+    <install> <!-- Runs on install -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+
+    <update>  <!-- Runs on update -->
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+
+    <uninstall> <!-- Runs on uninstall -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
 
     <!-- Frond-end files -->
     <files folder="components/com_companypartners">
@@ -29,6 +46,7 @@
         <!-- Core files -->
         <files folder="administrator/components/com_companypartners">
             <folder>services</folder>
+            <folder>sql</folder>
             <folder>src</folder>
             <folder>tmpl</folder>
         </files>
