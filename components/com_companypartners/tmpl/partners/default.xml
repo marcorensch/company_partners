@@ -5,4 +5,15 @@
             <![CDATA[COM_COMPANYPARTNERS_PARTNERS_VIEW_DEFAULT_DESC]]>
         </message>
     </layout>
+    <!-- Add fields to the requests variables for the layout -->
+    <fields name="request">
+        <fieldset name="request">
+            <field
+                name="show_text"
+                type="text"
+                label="COM_COMPANYPARTNERS_PARTNERS_FIELD_TEXT_SHOW_LABEL"
+                default="hi"
+            />
+        </fieldset>
+    </fields>
 </metadata>

@@ -29,6 +29,8 @@ class HtmlView extends BaseHtmlView
      */
     public function display($tpl = null)
     {
+        $this->msg = $this->get('Msg');
+
         return parent::display($tpl);
     }
 }
