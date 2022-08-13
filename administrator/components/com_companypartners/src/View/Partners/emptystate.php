@@ -14,7 +14,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 $displayData = [
     'textPrefix' => 'COM_COMPANYPARTNERS',
     'formURL' => 'index.php?option=com_companypartners',
-    'helpURL' => 'https://codeberg.org/astrid/j4examplecode/src/branch/main/README.md',
+    'helpURL' => 'https://github.com/marcorensch/company_partners/blob/f1ee6e76261a79dfb12285768191fbdd196843d2/README.md',
     'icon' => 'icon-copy',
 ];
 
