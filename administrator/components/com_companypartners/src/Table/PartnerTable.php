@@ -33,7 +33,7 @@ class PartnerTable extends Table
     {
         $this->typeAlias = 'com_companypartners.partner';
 
-        parent::__construct('#__companypartners_partner', 'id', $db);
+        parent::__construct('#__companypartners_partners', 'id', $db);
     }
 
     /**
