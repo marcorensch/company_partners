@@ -47,6 +47,7 @@
         <files folder="administrator/components/com_companypartners">
             <folder>services</folder>
             <folder>sql</folder>
+            <folder>forms</folder>
             <folder>src</folder>
             <folder>tmpl</folder>
         </files>
