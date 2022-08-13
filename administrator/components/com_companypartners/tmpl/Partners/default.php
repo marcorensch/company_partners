@@ -40,12 +40,13 @@ use Joomla\CMS\Router\Route;
                             ?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <th scope="row" class="has-context">
-                                    <div>
+                                    <div style="display:none">
                                         <?php echo $this->escape($item->name); ?>
                                     </div>
                                     <?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
                                     <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_companypartners&task=partner.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->name)); ?>">
-                                        <?php echo $editIcon; ?><?php echo $this->escape($item->name); ?></a>
+                                        <?php echo $editIcon; ?><?php echo $this->escape($item->name); ?>
+                                    </a>
                                 </th>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->id; ?>

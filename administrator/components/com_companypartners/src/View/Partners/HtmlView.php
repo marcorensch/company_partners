@@ -37,6 +37,9 @@ class HtmlView extends BaseHtmlView
     public function display($tpl = null): void
     {
         $this->items = $this->get('Items');
+
+        if (count($errors = $this->get('Errors'))) { throw new GenericDataException(implode("\n", $errors), 500);}
+
         if (!count($this->items) && $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
         }
