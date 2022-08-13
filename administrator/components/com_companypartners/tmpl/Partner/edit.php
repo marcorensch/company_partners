@@ -24,7 +24,7 @@ $layout  = 'edit';
 $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_foos&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="partner-form" class="form-validate">
+<form action="<?php echo Route::_('index.php?option=com_companypartners&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="partner-form" class="form-validate">
     <?php echo $this->getForm()->renderField('name'); ?>
     <?php echo $this->getForm()->renderField('alias'); ?>
     <input type="hidden" name="task" value="">

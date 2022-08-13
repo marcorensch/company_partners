@@ -20,6 +20,5 @@ use Joomla\CMS\MVC\Controller\FormController;
  */
 class PartnerController extends FormController
 {
-    protected $view_item = 'partner';
-    protected $view_list = 'partners';
+
 }
