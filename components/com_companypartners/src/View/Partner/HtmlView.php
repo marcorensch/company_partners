@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\Companypartners\Site\View\Partners;
+namespace NXD\Component\Companypartners\Site\View\Partner;
 
 defined('_JEXEC') or die;
 
@@ -27,9 +27,11 @@ class HtmlView extends BaseHtmlView
      *
      * @return  mixed  A string if successful, otherwise an Error object.
      */
+    protected $item;
+
     public function display($tpl = null)
     {
-        $this->msg = $this->get('Msg');
+        $this->item = $this->get('Item');
 
         return parent::display($tpl);
     }

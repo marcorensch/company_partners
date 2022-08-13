@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset
+            name="partner"
+            label="COM_COMPANYPARTNERS_FIELD_CONFIG_INDIVIDUAL_PARTNER_DISPLAY"
+            description="COM_COMPANYPARTNERS_FIELD_CONFIG_INDIVIDUAL_PARTNER_DESC"
+    >
+        <field
+                name="show_partner_name_label"
+                type="radio"
+                class="btn-group btn-group-yesno"
+                label="COM_COMPANYPARTNERS_FIELD_PARTNER_SHOW_CATEGORY_LABEL"
+                default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+    </fieldset>
+</config>

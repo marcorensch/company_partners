@@ -29,25 +29,34 @@
         </sql>
     </uninstall>
 
+
     <!-- Frond-end files -->
     <files folder="components/com_companypartners">
         <folder>src</folder>
+        <folder>language</folder>
         <folder>tmpl</folder>
     </files>
+
+    <media folder="media/com_companypartners" destination="com_companypartners">
+        <folder>js</folder>
+        <filename>joomla.asset.json</filename>
+    </media>
 
     <!-- Back-end files -->
     <administration>
         <!-- Menu entries -->
         <menu view="partners">COM_COMPANYPARTNERS</menu>
         <submenu>
-            <menu link="option=com_companypartners">COM_COMPANYPARTNERS</menu>
+            <menu link="option=com_companypartners">COM_COMPANYPARTNERS_PARTNERS</menu>
         </submenu>
 
         <!-- Core files -->
         <files folder="administrator/components/com_companypartners">
+            <filename>config.xml</filename>
             <folder>services</folder>
             <folder>sql</folder>
             <folder>forms</folder>
+            <folder>language</folder>
             <folder>src</folder>
             <folder>tmpl</folder>
         </files>

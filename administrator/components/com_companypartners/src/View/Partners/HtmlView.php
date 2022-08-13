@@ -54,5 +54,6 @@ class HtmlView extends BaseHtmlView
         ToolbarHelper::title(Text::_('COM_COMPANYPARTNERS_MANAGER_PARTNERS'), 'address foo');
 
         $toolbar->addNew('partner.add');
+        $toolbar->preferences('com_companypartners');
     }
 }
