@@ -48,9 +48,15 @@ class PartnersModel extends ListModel
 
         // Select the required fields from the table.
         $query->select(
-            $db->quoteName(['id', 'name', 'alias'])
+            $db->quoteName(['a.id', 'a.name', 'a.alias', 'a.access'])
         );
-        $query->from($db->quoteName('#__companypartners_partners'));
+        $query->from($db->quoteName('#__companypartners_partners','a'));
+        // Join over the asset groups.
+        $query->select($db->quoteName('ag.title', 'access_level'))
+            ->join(
+                'LEFT',
+                $db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
+            );
 
         return $query;
     }

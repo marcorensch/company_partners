@@ -28,6 +28,9 @@ use Joomla\CMS\Router\Route;
                             <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
                                 <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_TABLEHEAD_NAME'); ?>
                             </th>
+                            <th scope="col" style="width:10%" class="d-none d-md-table-cell">
+                                <?php echo TEXT::_('JGRID_HEADING_ACCESS') ?>
+                            </th>
                             <th scope="col">
                                 <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_TABLEHEAD_ID'); ?>
                             </th>
@@ -48,6 +51,9 @@ use Joomla\CMS\Router\Route;
                                         <?php echo $editIcon; ?><?php echo $this->escape($item->name); ?>
                                     </a>
                                 </th>
+                                <td class="small d-none d-md-table-cell">
+                                    <?php echo $item->access_level; ?>
+                                </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->id; ?>
                                 </td>

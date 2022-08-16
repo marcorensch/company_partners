@@ -11,6 +11,7 @@ namespace NXD\Component\Companypartners\Administrator\View\Partners;
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
@@ -49,11 +50,17 @@ class HtmlView extends BaseHtmlView
 
     protected function addToolbar()
     {
+        $canDo = ContentHelper::getActions('com_companypartners');
         // Get the toolbar object instance
         $toolbar = Toolbar::getInstance('toolbar');
         ToolbarHelper::title(Text::_('COM_COMPANYPARTNERS_MANAGER_PARTNERS'), 'address foo');
 
-        $toolbar->addNew('partner.add');
-        $toolbar->preferences('com_companypartners');
+        // Show Buttons only if the user is allowed to do so
+        if ($canDo->get('core.create')) {
+            $toolbar->addNew('partner.add');
+        }
+        if($canDo->get('core.options')) {
+            $toolbar->preferences('com_companypartners');
+        }
     }
 }
