@@ -6,6 +6,17 @@
   "license": "GPL-2.0-or-later",
   "assets": [
     {
+      "name": "com_companypartners.admin-companypartners-letter",
+      "type": "script",
+      "uri": "com_companypartners/admin-companypartners-letter.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
       "name": "com_companypartners.admin-partners-modal",
       "type": "script",
       "uri": "com_companypartners/admin-partners-modal.js",

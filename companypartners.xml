@@ -48,6 +48,7 @@
         <menu view="partners">COM_COMPANYPARTNERS</menu>
         <submenu>
             <menu link="option=com_companypartners">COM_COMPANYPARTNERS_PARTNERS</menu>
+            <menu link="option=com_categories&amp;extension=com_companypartners">JCATEGORIES</menu>
         </submenu>
 
         <!-- Core files -->

@@ -19,15 +19,14 @@ use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use NXD\Component\Companypartners\Administrator\Service\HTML\AdministratorService;
 use Psr\Container\ContainerInterface;
+use Joomla\CMS\Helper\ContentHelper;
 
 /**
  * Component class for com_companypartners
  *
  * @since  1.0.0
  */
-class CompanypartnersComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface
-
-{
+class CompanypartnersComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface {
     use CategoryServiceTrait;
     use HTMLRegistryAwareTrait;
 
@@ -45,8 +44,31 @@ class CompanypartnersComponent extends MVCComponent implements BootableExtension
      * @since   1.0.0
      */
 
-    public function boot(ContainerInterface $container)
-    {
+    public function boot(ContainerInterface $container){
         $this->getRegistry()->register('Companypartnersadministrator', new AdministratorService);
+    }
+
+    public function countItems(array $items, string $section){
+        try {
+            $config = (object) array(
+                'related_tbl'   => $this->getTableNameForSection($section),
+                'state_col'     => 'published',
+                'group_col'     => 'catid',
+                'relation_type' => 'category_or_group',
+            );
+            ContentHelper::countRelations($items, $config);
+
+        } catch (\Exception $e) {
+            // Ignore it
+        }
+    }
+
+    protected function getTableNameForSection(string $section = null){
+        return ($section === 'category' ? 'categories' : 'companypartners_partner');
+    }
+
+    protected function getStateColumnForSection(string $section = null)
+    {
+        return 'published';
     }
 }
