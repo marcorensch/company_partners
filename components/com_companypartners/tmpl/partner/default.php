@@ -17,3 +17,7 @@ if ($this->get('State')->get('params')->get('show_partner_name_label'))
     echo Text::_('COM_COMPANYPARTNERS_NAME');
 }
 echo $this->item->name;
+
+echo $this->item->event->afterDisplayTitle;
+echo $this->item->event->beforeDisplayContent;
+echo $this->item->event->afterDisplayContent;

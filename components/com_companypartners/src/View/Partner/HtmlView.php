@@ -12,6 +12,7 @@ namespace NXD\Component\Companypartners\Site\View\Partner;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Factory;
 
 /**
  * HTML Partner View class for the Company Partners component
@@ -31,7 +32,21 @@ class HtmlView extends BaseHtmlView
 
     public function display($tpl = null)
     {
-        $this->item = $this->get('Item');
+	    $item = $this->item = $this->get('Item');
+
+	    Factory::getApplication()->triggerEvent('onContentPrepare', ['com_companypartners.partner', &$item, &$item->params]);
+
+		// Store the events for later
+	    $item->event = new \stdClass;
+
+		$results = Factory::getApplication()->triggerEvent('onContentAfterTitle', ['com_companypartners.partner', &$item, &$item->params]);
+	    $item->event->afterDisplayTitle = trim(implode("\n", $results));
+
+	    $results = Factory::getApplication()->triggerEvent('onContentBeforeDisplay', ['com_companypartners.partner', &$item, &$item->params]);
+	    $item->event->beforeDisplayContent = trim(implode("\n", $results));
+
+	    $results = Factory::getApplication()->triggerEvent('onContentAfterDisplay', ['com_companypartners.partner', &$item, &$item->params]);
+	    $item->event->afterDisplayContent = trim(implode("\n", $results));
 
         return parent::display($tpl);
     }
