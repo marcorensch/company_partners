@@ -49,6 +49,8 @@
         <submenu>
             <menu link="option=com_companypartners">COM_COMPANYPARTNERS_PARTNERS</menu>
             <menu link="option=com_categories&amp;extension=com_companypartners">JCATEGORIES</menu>
+            <menu link="option=com_fields&amp;context=com_companypartners.partner">JGLOBAL_FIELDS</menu>
+            <menu link="option=com_fields&amp;view=groups&amp;context=com_companypartners.partner">JGLOBAL_FIELD_GROUPS</menu>
         </submenu>
 
         <!-- Core files -->
