@@ -54,7 +54,7 @@ class PartnersModel extends ListModel
             $db->quoteName(
 				[
 					'a.id', 'a.name', 'a.alias', 'a.access',
-					'a.catid','a.published', 'a.publish_up', 'a.publish_down',
+					'a.catid','a.categories','a.published', 'a.publish_up', 'a.publish_down',
 					'a.language'
 				]
             )
@@ -68,18 +68,26 @@ class PartnersModel extends ListModel
 			    $db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
 		    );
 
-	    // Join over the categories.
+	    // Join over the category.
 	    $query->select($db->quoteName('c.title', 'category_title'))->join(
 		    'LEFT',
 		    $db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
 	    );
+
+//	    // Join over the categories.
+//	    $categoriesSubQuery = $db->getQuery(true)
+//		    ->select($db->quoteName('cats.name'))
+//		    ->from($db->quoteName('#__categories', 'cats'))
+//		    ->where($db->quoteName('cats.id') . ' IN (' . $db->quote('a.categories') . ')');
+//
+//	    $query->select('(' . $categoriesSubQuery . ') AS ' . $db->quoteName('categoriesArr'));
 
 		// Join over the language
 	    $query->select($db->quoteName('l.title', 'language_title'))
 		    ->select($db->quoteName('l.image', 'language_image'))
 		    ->join(
 				'LEFT',
-			    				$db->quoteName('#__languages', 'l') . ' ON ' . $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language')
+				$db->quoteName('#__languages', 'l') . ' ON ' . $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language')
 		    );
 
 		// Join over the Associations.

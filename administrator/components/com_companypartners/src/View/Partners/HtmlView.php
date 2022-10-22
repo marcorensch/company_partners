@@ -47,7 +47,7 @@ class HtmlView extends BaseHtmlView
         if (!count($this->items) && $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
         }
-		// We dont need toolbar in the modal window
+		// We don't need toolbar in the modal window
 	    if($this->getLayout() !== 'modal')
 	    {
 		    $this->addToolbar();

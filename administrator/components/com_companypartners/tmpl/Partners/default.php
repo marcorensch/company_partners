@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Layout\LayoutHelper;
 
 $assoc = Associations::isEnabled();
-
+echo '<pre>' . var_export($this->items, true) . '</pre>';
 ?>
 
 <?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>

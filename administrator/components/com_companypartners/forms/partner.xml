@@ -70,12 +70,13 @@
                 filter="user_utc"
         />
         <field
-                name="catid"
+                name="categories"
                 type="categoryedit"
                 label="JCATEGORY"
                 extension="com_companypartners"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
+                multiple="true"
                 default=""
         />
 

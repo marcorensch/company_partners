@@ -41,6 +41,7 @@ class PartnerTable extends Table
      * Remains public to be able to check for duplicated alias before saving
      *
      * @return  string
+     * @since  __BUMP_VERSION__
      */
     public function generateAlias()
     {
@@ -67,7 +68,7 @@ class PartnerTable extends Table
             return false;
         }
 
-        // Check the publish down date is not earlier than publish up.
+        // Check the publishing down date is not earlier than publish up.
         if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
             $this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
             return false;

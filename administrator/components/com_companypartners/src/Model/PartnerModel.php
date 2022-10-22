@@ -12,6 +12,7 @@ namespace NXD\Component\Companypartners\Administrator\Model;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Language\LanguageHelper;
@@ -78,6 +79,12 @@ class PartnerModel extends AdminModel
 			    $data->set('catid', $app->input->get('catid', $app->getUserState('com_companypartners.partners.filter.category_id'), 'int'));
 		    }
 	    }
+
+	    if($data->get('categories')) {
+			$data->set('categories', explode(',', $data->get('categories')));
+	    }
+
+
 
         $this->preprocessData($this->typeAlias, $data);
 
@@ -149,4 +156,17 @@ class PartnerModel extends AdminModel
     {
         $table->generateAlias();
     }
+
+	public function save($data){
+
+		if(isset($data['categories'])){
+			$data['categories'] = implode(',', $data['categories']);
+		}
+
+		if(parent::save($data)){
+			return true;
+		}
+
+		return false;
+	}
 }
