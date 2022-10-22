@@ -7,13 +7,17 @@ CREATE TABLE IF NOT EXISTS `#__companypartners_partners`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
-/*
-INSERT INTO `#__companypartners_partners` (`name`)
-VALUES ('nx-designs'),
-       ('nx-productions'),
-       ('Baier Lighting'),
-       ('Hundephysiotherapie Baier');
- */
+
+# /* Categories Support for Partners implemented normalized */
+# CREATE TABLE IF NOT EXISTS `#__companypartners_partner_categories`
+# (
+#     `id`            int(11)                   NOT NULL AUTO_INCREMENT,
+#     `partner_id`    int(11)                   NOT NULL,
+#     `category_id`   int(11)                   NOT NULL,
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4
+#   DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 ALTER TABLE `#__companypartners_partners` ADD COLUMN  `access` int(10) unsigned NOT NULL DEFAULT 0 AFTER `alias`;
 ALTER TABLE `#__companypartners_partners` ADD KEY `idx_access` (`access`);
@@ -26,3 +30,4 @@ ALTER TABLE `#__companypartners_partners` ADD COLUMN  `publish_down` datetime AF
 ALTER TABLE `#__companypartners_partners` ADD KEY `idx_state` (`published`);
 ALTER TABLE `#__companypartners_partners`ADD COLUMN `language` char(7) NOT NULL DEFAULT '' AFTER `alias`;
 ALTER TABLE `#__companypartners_partners` ADD KEY `idx_language` (`language`);
+ALTER TABLE `#__companypartners_partners`ADD COLUMN `categories` varchar(255) NOT NULL DEFAULT '' AFTER `name`;

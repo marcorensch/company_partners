@@ -9,7 +9,8 @@
                 type="number"
                 label="JGLOBAL_FIELD_ID_LABEL"
                 default="0"
-                class="readonly"
+                class="readonly hidden"
+                hidden="true"
                 readonly="true"
         />
 

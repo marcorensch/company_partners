@@ -81,9 +81,8 @@ class PartnerModel extends AdminModel
 	    }
 
 	    if($data->get('categories')) {
-			$data->set('categories', explode(',', $data->get('categories')));
+			$data->set('categories', explode(",", $data->get('categories')));
 	    }
-
 
 
         $this->preprocessData($this->typeAlias, $data);
@@ -160,7 +159,7 @@ class PartnerModel extends AdminModel
 	public function save($data){
 
 		if(isset($data['categories'])){
-			$data['categories'] = implode(',', $data['categories']);
+			$data['categories'] = implode("," , $data['categories']);
 		}
 
 		if(parent::save($data)){
