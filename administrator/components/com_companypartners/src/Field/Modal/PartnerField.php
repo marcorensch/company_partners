@@ -79,13 +79,16 @@ class PartnerField extends FormField
         }
 
         // Setup variables for display.
-        $linkFoos = 'index.php?option=com_companypartners&amp;view=partners&amp;layout=modal&amp;tmpl=component&amp;'
-            . Session::getFormToken() . '=1';
-        $linkFoo  = 'index.php?option=com_companypartners&amp;view=partner&amp;layout=modal&amp;tmpl=component&amp;'
+        $linkPartners = 'index.php?option=com_companypartners&amp;view=partners&amp;layout=modal&amp;tmpl=component&amp;'
             . Session::getFormToken() . '=1';
         $modalTitle   = Text::_('COM_COMPANYPARTNERS_CHANGE_PARTNER');
 
-        $urlSelect = $linkFoos . '&amp;function=jSelectPartner_' . $this->id;
+		if(isset($this->element['language'])) {
+			$linkPartners .= '&amp;forcedLanguage=' . $this->element['language'];
+			$modalTitle .= ' &#8212; ' . $this->element['label'];
+		}
+
+        $urlSelect = $linkPartners . '&amp;function=jSelectPartner_' . $this->id;
 
         if ($value) {
             $db    = Factory::getDbo();

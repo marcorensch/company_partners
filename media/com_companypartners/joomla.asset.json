@@ -6,9 +6,9 @@
   "license": "GPL-2.0-or-later",
   "assets": [
     {
-      "name": "com_companypartners.admin-companypartners-letter",
+      "name": "com_companypartners.admin-partners-letter",
       "type": "script",
-      "uri": "com_companypartners/admin-companypartners-letter.js",
+      "uri": "com_companypartners/admin-partners-letter.js",
       "dependencies": [
         "core"
       ],

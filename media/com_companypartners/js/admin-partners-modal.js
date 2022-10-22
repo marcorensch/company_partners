@@ -6,13 +6,13 @@
     'use strict';
     document.addEventListener('DOMContentLoaded', function () {
         // Get the elements
-        var elements = document.querySelectorAll('.select-link');
+        let elements = document.querySelectorAll('.select-link');
 
-        for (var i = 0, l = elements.length; l > i; i += 1) {
+        for (let i = 0, l = elements.length; l > i; i += 1) {
             // Listen for click event
             elements[i].addEventListener('click', function (event) {
                 event.preventDefault();
-                var functionName = event.target.getAttribute('data-function');
+                let functionName = event.target.getAttribute('data-function');
 
                 window.parent[functionName](
                     event.target.getAttribute('data-id'),

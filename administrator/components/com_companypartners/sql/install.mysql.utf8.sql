@@ -24,3 +24,5 @@ ALTER TABLE `#__companypartners_partners` ADD COLUMN  `published` tinyint(1) NOT
 ALTER TABLE `#__companypartners_partners` ADD COLUMN  `publish_up` datetime AFTER `alias`;
 ALTER TABLE `#__companypartners_partners` ADD COLUMN  `publish_down` datetime AFTER `alias`;
 ALTER TABLE `#__companypartners_partners` ADD KEY `idx_state` (`published`);
+ALTER TABLE `#__companypartners_partners`ADD COLUMN `language` char(7) NOT NULL DEFAULT '' AFTER `alias`;
+ALTER TABLE `#__companypartners_partners` ADD KEY `idx_language` (`language`);

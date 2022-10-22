@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-    <fieldset addruleprefix="NXD\Component\Companypartners\Administrator\Rule">
+    <fieldset
+            addruleprefix="NXD\Component\Companypartners\Administrator\Rule"
+            addfieldprefix="NXD\Component\Companypartners\Administrator\Field"
+    >
         <field
                 name="id"
                 type="number"
@@ -11,10 +14,17 @@
         />
 
         <field
+                name="language"
+                type="contentlanguage"
+                label="JFIELD_LANGUAGE_LABEL"
+        >
+            <option value="*">JALL</option>
+        </field>
+        <field
                 name="name"
                 type="text"
-                validate="letter"
-                class="validate-letter"
+                validate=""
+                class=""
                 label="COM_COMPANYPARTNERS_FIELD_NAME_LABEL"
                 size="40"
                 required="true"

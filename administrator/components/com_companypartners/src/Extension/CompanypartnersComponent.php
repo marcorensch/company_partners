@@ -12,6 +12,8 @@ namespace NXD\Component\Companypartners\Administrator\Extension;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\CMS\Association\AssociationServiceInterface;
+use Joomla\CMS\Association\AssociationServiceTrait;
 use Joomla\CMS\Categories\CategoryServiceInterface;
 use Joomla\CMS\Categories\CategoryServiceTrait;
 use Joomla\CMS\Extension\BootableExtensionInterface;
@@ -26,8 +28,10 @@ use Joomla\CMS\Helper\ContentHelper;
  *
  * @since  1.0.0
  */
-class CompanypartnersComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface {
+class CompanypartnersComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface
+{
     use CategoryServiceTrait;
+	use AssociationServiceTrait;
     use HTMLRegistryAwareTrait;
 
     /**
@@ -45,7 +49,7 @@ class CompanypartnersComponent extends MVCComponent implements BootableExtension
      */
 
     public function boot(ContainerInterface $container){
-        $this->getRegistry()->register('Companypartnersadministrator', new AdministratorService);
+        $this->getRegistry()->register('partnersadministrator', new AdministratorService);
     }
 
     public function countItems(array $items, string $section){

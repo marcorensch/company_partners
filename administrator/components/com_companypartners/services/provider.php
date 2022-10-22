@@ -21,6 +21,9 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use NXD\Component\Companypartners\Administrator\Extension\CompanypartnersComponent;
+use NXD\Component\Companypartners\Administrator\Helper\AssociationsHelper;
+use Joomla\CMS\Association\AssociationExtensionInterface;
+
 /**
  * The Company Partners service provider.
  * https://github.com/joomla/joomla-cms/pull/20217
@@ -38,17 +41,18 @@ return new class implements ServiceProviderInterface {
 
     public function register(Container $container)
     {
+	    $container->set(AssociationExtensionInterface::class, new AssociationsHelper);
         $container->registerServiceProvider(new CategoryFactory('\\NXD\\Component\\Companypartners'));
         $container->registerServiceProvider(new MVCFactory('\\NXD\\Component\\Companypartners'));
         $container->registerServiceProvider(new ComponentDispatcherFactory('\\NXD\\Component\\Companypartners'));
         $container->set(
-
             ComponentInterface::class,
             function (Container $container) {
                 $component = new CompanypartnersComponent($container->get(ComponentDispatcherFactoryInterface::class));
                 $component->setRegistry($container->get(Registry::class));
                 $component->setMVCFactory($container->get(MVCFactoryInterface::class));
                 $component->setCategoryFactory($container->get(CategoryFactoryInterface::class));
+				$component->setAssociationExtension($container->get(AssociationExtensionInterface::class));
 
                 return $component;
             }

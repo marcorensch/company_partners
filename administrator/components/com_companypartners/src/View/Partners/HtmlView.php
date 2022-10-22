@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Factory;
 
 /**
  * View class for a list of Partners.
@@ -31,7 +32,7 @@ class HtmlView extends BaseHtmlView
      *
      * @return  void
      *
-     * @since   __BUMP_VERSION__
+     * @since   1.0.0
      */
     protected $items;
 
@@ -39,12 +40,31 @@ class HtmlView extends BaseHtmlView
     {
         $this->items = $this->get('Items');
 
-        if (count($errors = $this->get('Errors'))) { throw new GenericDataException(implode("\n", $errors), 500);}
+        if (count($errors = $this->get('Errors'))) {
+			throw new GenericDataException(implode("\n", $errors), 500);
+		}
 
         if (!count($this->items) && $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
         }
-        $this->addToolbar();
+		// We dont need toolbar in the modal window
+	    if($this->getLayout() !== 'modal')
+	    {
+		    $this->addToolbar();
+			$this->sidebar = \JHtmlSidebar::render();
+	    }else{
+		    // In article associations modal we need to remove language filter if forcing a language.
+		    // We also need to change the category filter to show categories with All or the forced language.
+		    if($forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'cmd')){
+			    // If the language is forced we can't allow to select the language, so transform the language selector filter into an hidden field.
+			    $languageXml = new \SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
+//			    $this->filterForm->setField($languageXml, 'filter', true);
+//			    // Also, unset the active language filter so the search tools is not open by default with this filter.
+//			    unset($this->activeFilters['language']);
+//			    // One last changes needed is to change the category filter to just show categories with All language or with the forced language.
+//			    $this->filterForm->setFieldAttribute('category_id', 'language', '*,' . $forcedLanguage, 'filter');
+		    }
+	    }
         parent::display($tpl);
     }
 
