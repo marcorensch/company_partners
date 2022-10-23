@@ -14,6 +14,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
@@ -86,11 +87,25 @@ class HtmlView extends BaseHtmlView
 
         $isNew = ($this->item->id == 0);
 
-        ToolbarHelper::title($isNew ? Text::_('COM_COMPANYPARTNERS_MANAGER_PARTNER_NEW') : Text::_('COM_COMPANYPARTNERS_MANAGER_PARTNER_EDIT'), 'address partner');
+	    $toolbar = Toolbar::getInstance();
 
-        ToolbarHelper::apply('partner.apply');
-		ToolbarHelper::save('partner.save');
-		ToolbarHelper::save2new('partner.save2new');
-        ToolbarHelper::cancel('partner.cancel', 'JTOOLBAR_CLOSE');
+
+	    ToolbarHelper::title($isNew ? Text::_('COM_COMPANYPARTNERS_MANAGER_PARTNER_NEW') : Text::_('COM_COMPANYPARTNERS_MANAGER_PARTNER_EDIT'), 'address partner');
+
+        $toolbar->apply('partner.apply');
+
+	    $saveGroup = $toolbar->dropdownButton('save-group');
+
+	    $saveGroup->configure(
+		    function (Toolbar $childBar) {
+			    $childBar->save('partner.save');
+			    $childBar->save2new('partner.save2new');
+			    $childBar->save2copy('partner.save2copy');
+		    }
+	    );
+
+//		ToolbarHelper::save('partner.save');
+//		ToolbarHelper::save2new('partner.save2new');
+        $toolbar->cancel('partner.cancel', 'JTOOLBAR_CLOSE');
     }
 }

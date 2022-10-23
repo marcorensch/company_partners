@@ -163,9 +163,57 @@ class PartnerModel extends AdminModel
 		}
 
 		if(parent::save($data)){
-			return true;
+			$itemId = $this->getState($this->getName() . '.id');
+
+			if($this->storeCategories($itemId, $data['categories'])){
+				return true;
+			}
 		}
 
 		return false;
+	}
+
+	public function delete(&$pks){
+		error_log("delete");
+		parent::delete($pks);
+	}
+
+	private function storeCategories($itemId, $categories)
+	{
+		// Store the categories
+		$categories = explode(',', $categories);
+		if(!is_array($categories)){
+			$categories = [$categories];
+		}
+		// Normalization for Categories on Save
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
+
+		try{
+			foreach ($categories as $category){
+				error_log('Item: ' . $itemId . ' Category: ' . $category);
+				$query->clear();
+				$query->select('id')
+					->from('#__companypartners_partner_category')
+					->where($db->quoteName('category_id') . ' = ' . $category)
+					->where($db->quoteName('partner_id') . ' = ' . $itemId);
+				$db->setQuery($query);
+				$result = $db->loadResult();
+
+				if (!$result){
+					$query->clear();
+					$query->insert('#__companypartners_partner_category')
+						->columns('partner_id, category_id')
+						->values($db->quote($itemId) . ', ' . $db->quote($category));
+					$db->setQuery($query);
+					$db->execute();
+				}
+			}
+		}catch (Exception $e){
+			$this->setError($e->getMessage());
+			return false;
+		}
+
+		return true;
 	}
 }

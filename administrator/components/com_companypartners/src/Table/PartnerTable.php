@@ -85,20 +85,8 @@ class PartnerTable extends Table
         return true;
     }
 
-
     public function store($updateNulls = true)
     {
-		error_log('stored');
-		error_log($this->categories);
         return parent::store($updateNulls);
     }
-
-	private function storeCategories(){
-		// Store the categories
-		$categories = explode(',', $this->categories);
-		$db = $this->getDbo();
-		$query = $db->getQuery(true);
-		$query->delete($db->quoteName('#__companypartners_partners_categories'));
-
-	}
 }
