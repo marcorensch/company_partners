@@ -49,7 +49,7 @@ class HtmlView extends BaseHtmlView
 	 */
     public function display($tpl = null)
     {
-        $this->form  = $this->get('Form');
+        $this->form = $this->get('Form');
         $this->item = $this->get('Item');
 
 		// If we are forcing a language in modal (used for associations).
