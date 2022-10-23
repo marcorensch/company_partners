@@ -8,16 +8,16 @@ CREATE TABLE IF NOT EXISTS `#__companypartners_partners`
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
 
-# /* Categories Support for Partners implemented normalized */
-# CREATE TABLE IF NOT EXISTS `#__companypartners_partner_categories`
-# (
-#     `id`            int(11)                   NOT NULL AUTO_INCREMENT,
-#     `partner_id`    int(11)                   NOT NULL,
-#     `category_id`   int(11)                   NOT NULL,
-#     PRIMARY KEY (`id`)
-# ) ENGINE = InnoDB
-#   DEFAULT CHARSET = utf8mb4
-#   DEFAULT COLLATE = utf8mb4_unicode_ci;
+/* Categories Support for Partners implemented normalized */
+CREATE TABLE IF NOT EXISTS `#__companypartners_partner_categories`
+(
+    `id`            int(11)                   NOT NULL AUTO_INCREMENT,
+    `partner_id`    int(11)                   NOT NULL,
+    `category_id`   int(11)                   NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 ALTER TABLE `#__companypartners_partners` ADD COLUMN  `access` int(10) unsigned NOT NULL DEFAULT 0 AFTER `alias`;
 ALTER TABLE `#__companypartners_partners` ADD KEY `idx_access` (`access`);
