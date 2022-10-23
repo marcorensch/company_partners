@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `#__companypartners_partners`
   DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 /* Categories Support for Partners implemented normalized */
-CREATE TABLE IF NOT EXISTS `#__companypartners_partner_categories`
+CREATE TABLE IF NOT EXISTS `#__companypartners_partner_category`
 (
     `id`            int(11)                   NOT NULL AUTO_INCREMENT,
     `partner_id`    int(11)                   NOT NULL,
