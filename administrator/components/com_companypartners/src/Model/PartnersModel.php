@@ -14,7 +14,7 @@ namespace NXD\Component\Companypartners\Administrator\Model;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Factory;
-use function MongoDB\BSON\toJSON;
+use Joomla\Utilities\ArrayHelper;
 
 
 /**
@@ -68,21 +68,6 @@ class PartnersModel extends ListModel
 			    'LEFT',
 			    $db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
 		    );
-
-	    // Join over the category.
-	    $query->select($db->quoteName('c.title', 'category_title'))->join(
-		    'LEFT',
-		    $db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
-	    );
-
-	    // Join over the category.
-	    $categoriesSubQuery = $db->getQuery(true)
-		    ->select($db->quoteName('cats.title'))
-		    ->from($db->quoteName('#__categories', 'cats'))
-		    ->where( $db->quoteName('cats.id') . ' IN (' . $db->quoteName('a.categories') . ')');
-
-	    $query->select('(' . $categoriesSubQuery . ') AS ' . $db->quoteName('categoriesArr'));
-
 
 	    // Join over the language
 	    $query->select($db->quoteName('l.title', 'language_title'))
@@ -142,5 +127,27 @@ class PartnersModel extends ListModel
 		if(!empty($forcedLanguage)){
 			$this->setState('filter.language', $forcedLanguage);
 		}
+	}
+
+	public function getItems()
+	{
+		$items = parent::getItems();
+
+		foreach($items as $item){
+			$item->categories = self::getCategoryNames($item->categories);
+		}
+
+		return $items;
+	}
+
+	private function getCategoryNames($categories){
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select(array('title','id','alias'));
+		$query->from($db->quoteName('#__categories'));
+		$query->where($db->quoteName('id') . ' IN (' . $categories . ')');
+		$db->setQuery($query);
+
+		return $db->loadObjectList();
 	}
 }

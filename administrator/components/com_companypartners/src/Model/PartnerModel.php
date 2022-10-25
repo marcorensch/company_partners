@@ -165,7 +165,7 @@ class PartnerModel extends AdminModel
 		if(parent::save($data)){
 			$itemId = $this->getState($this->getName() . '.id');
 
-			if($this->storeCategories($itemId, $data['categories'])){
+			if($this->updateItemCategories($itemId, $data['categories'])){
 				return true;
 			}
 		}
@@ -178,40 +178,68 @@ class PartnerModel extends AdminModel
 		parent::delete($pks);
 	}
 
-	private function storeCategories($itemId, $categories)
+	private function categoriesToArray($categories): array
 	{
-		// Store the categories
 		$categories = explode(',', $categories);
-		if(!is_array($categories)){
-			$categories = [$categories];
-		}
-		// Normalization for Categories on Save
+		return !is_array($categories) ? [$categories] : $categories;
+	}
+
+	private function updateItemCategories($itemId, $formCategories){
+
+		$formCategories = $this->categoriesToArray($formCategories);
+
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 
-		try{
-			foreach ($categories as $category){
-				error_log('Item: ' . $itemId . ' Category: ' . $category);
-				$query->clear();
-				$query->select('id')
-					->from('#__companypartners_partner_category')
-					->where($db->quoteName('category_id') . ' = ' . $category)
-					->where($db->quoteName('partner_id') . ' = ' . $itemId);
-				$db->setQuery($query);
-				$result = $db->loadResult();
+		// Get all registered categories for this item from normalized table
+		$query->select($db->quoteName(array('id', 'category_id')))
+			->from($db->quoteName('#__companypartners_partner_category'))
+			->where($db->quoteName('partner_id') . ' = ' . $db->quote($itemId));
+		$db->setQuery($query);
+		$storedCategories = $db->loadObjectList();
 
-				if (!$result){
-					$query->clear();
-					$query->insert('#__companypartners_partner_category')
-						->columns('partner_id, category_id')
-						->values($db->quote($itemId) . ', ' . $db->quote($category));
+		// unset all still given/found categories from storedCategories
+		foreach ($storedCategories as $key => $category){
+			if(in_array($category->category_id, $formCategories)){
+				unset($storedCategories[$key]);
+				unset($formCategories[array_search($category->category_id, $formCategories)]);
+			}
+		}
+
+		// check for leftover categories in db and delete them
+		if($storedCategories){
+			foreach ($storedCategories as $storedCategory){
+				try{
+					$query->clear()
+						->delete($db->quoteName('#__companypartners_partner_category'))
+						->where($db->quoteName('id') . ' = ' . $db->quote($storedCategory->id));
+					$db->setQuery($query);
+					$db->execute();
+				}catch (Exception $e){
+					$this->setError($e->getMessage());
+					return false;
+				}
+			}
+		}
+
+		// if categories > 0 --> Add new categories to db
+		if($formCategories){
+			foreach ($formCategories as $formCategory){
+				try
+				{
+					$query->clear()
+						->insert($db->quoteName('#__companypartners_partner_category'))
+						->columns($db->quoteName(['partner_id', 'category_id']))
+						->values($db->quote($itemId) . ', ' . $db->quote($formCategory));
 					$db->setQuery($query);
 					$db->execute();
 				}
+				catch (Exception $e)
+				{
+					$this->setError($e->getMessage());
+					return false;
+				}
 			}
-		}catch (Exception $e){
-			$this->setError($e->getMessage());
-			return false;
 		}
 
 		return true;
