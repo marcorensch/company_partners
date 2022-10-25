@@ -24,6 +24,7 @@ use Joomla\Utilities\ArrayHelper;
  */
 class PartnersModel extends ListModel
 {
+	private $categories = null;
     /**
      * Constructor.
      *
@@ -35,7 +36,9 @@ class PartnersModel extends ListModel
      */
     public function __construct($config = [])
     {
+
         parent::__construct($config);
+	    $this->categories = $this->getAllCategories();
     }
     /**
      * Build an SQL query to load the list data.
@@ -133,21 +136,34 @@ class PartnersModel extends ListModel
 	{
 		$items = parent::getItems();
 
+		echo '<pre>' . var_export($this->categories, true) . '</pre>';
 		foreach($items as $item){
-			$item->categories = self::getCategoryNames($item->categories);
+			$item->categories = self::mapCategories($item->categories);
 		}
 
 		return $items;
 	}
 
-	private function getCategoryNames($categories){
+	private function getAllCategories(){
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
-		$query->select(array('title','id','alias'));
+		$query->select(array('id','alias','title'));
 		$query->from($db->quoteName('#__categories'));
-		$query->where($db->quoteName('id') . ' IN (' . $categories . ')');
+		$query->where($db->quoteName('extension') . ' = ' . $db->quote('com_companypartners'));
 		$db->setQuery($query);
 
-		return $db->loadObjectList();
+		return $db->loadObjectList('id');
+	}
+
+	private function mapCategories($categories){
+		$categories = explode(',', $categories);
+		$categoryObjects = array();
+		foreach($categories as $category){
+			if(isset($this->categories[$category])){
+				$categoryObjects[] = $this->categories[$category];
+			}
+		}
+
+		return $categoryObjects;
 	}
 }
