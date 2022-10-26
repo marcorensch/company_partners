@@ -28,7 +28,7 @@ class PartnerModel extends BaseDatabaseModel
     protected $_item = null;
 
     /**
-     * Gets a foo
+     * Gets a partner
      *
      * @param   integer  $pk  Id for the foo
      *

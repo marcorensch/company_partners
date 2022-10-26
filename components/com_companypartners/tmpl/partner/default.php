@@ -12,11 +12,14 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 
-if ($this->get('State')->get('params')->get('show_partner_name_label'))
-{
-    echo Text::_('COM_COMPANYPARTNERS_NAME');
+if ($this->item->params->get('show_name')) {
+
+	if ($this->params->get('show_partners_name_label')) {
+		echo Text::_('COM_COMPANYPARTNERS_NAME');
+	}
+
+	echo $this->item->title;
 }
-echo $this->item->name;
 
 echo $this->item->event->afterDisplayTitle;
 echo $this->item->event->beforeDisplayContent;

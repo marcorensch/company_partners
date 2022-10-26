@@ -93,7 +93,7 @@ class PartnerField extends FormField
         if ($value) {
             $db    = Factory::getDbo();
             $query = $db->getQuery(true)
-                ->select($db->quoteName('name'))
+                ->select($db->quoteName('title'))
                 ->from($db->quoteName('#__companypartners_partners'))
                 ->where($db->quoteName('id') . ' = ' . (int) $value);
             $db->setQuery($query);

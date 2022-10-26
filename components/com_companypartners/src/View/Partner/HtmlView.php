@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
+use Joomla\Registry\Registry;
 
 /**
  * HTML Partner View class for the Company Partners component
@@ -29,10 +30,26 @@ class HtmlView extends BaseHtmlView
      * @return  mixed  A string if successful, otherwise an Error object.
      */
     protected $item;
+	protected $params = null;
+	protected $state;
 
     public function display($tpl = null)
     {
 	    $item = $this->item = $this->get('Item');
+	    $state = $this->state = $this->get('State');
+	    $params = $this->params = $state->get('params');
+	    $itemparams = new Registry(json_decode($item->params));
+	    $temp = clone $params;
+
+	    /**
+	     * $item->params are the foo params, $temp are the menu item params
+	     * Merge so that the menu item params take priority
+	     *
+	     * $itemparams->merge($temp);
+	     */
+	    // Merge so that partner params take priority
+	    $temp->merge($itemparams);
+	    $item->params = $temp;
 
 	    Factory::getApplication()->triggerEvent('onContentPrepare', ['com_companypartners.partner', &$item, &$item->params]);
 

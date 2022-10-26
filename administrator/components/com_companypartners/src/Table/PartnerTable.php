@@ -15,6 +15,8 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseDriver;
+use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
 
 /**
  * CompanyPartners Table class.
@@ -112,6 +114,12 @@ class PartnerTable extends Table
 
     public function store($updateNulls = true)
     {
-        return parent::store($updateNulls);
+	    // Transform the params field
+	    if (is_array($this->params)) {
+		    $registry = new Registry($this->params);
+		    $this->params = (string) $registry;
+	    }
+
+	    return parent::store($updateNulls);
     }
 }

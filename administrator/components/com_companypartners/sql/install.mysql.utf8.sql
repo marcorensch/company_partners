@@ -43,3 +43,4 @@ ALTER TABLE `#__companypartners_partners` ADD COLUMN `language` char(7) NOT NULL
 ALTER TABLE `#__companypartners_partners` ADD KEY `idx_language` (`language`);
 ALTER TABLE `#__companypartners_partners` ADD COLUMN `groups` varchar(255) NOT NULL DEFAULT '' AFTER `title`;
 ALTER TABLE `#__companypartners_partners` ADD COLUMN `ordering` INT( 11 ) NOT NULL DEFAULT 0 AFTER `alias`;
+ALTER TABLE `#__companypartners_partners` ADD COLUMN  `params` text NOT NULL AFTER `alias`;
