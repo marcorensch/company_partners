@@ -14,8 +14,22 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Session\Session;
 
+$wa = $this->document->getWebAssetManager();
+$wa->useScript('table.columns');
+
+$canChange = true;
 $assoc = Associations::isEnabled();
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn = $this->escape($this->state->get('list.direction'));
+$saveOrder = $listOrder === 'a.ordering';
+
+if ($saveOrder && !empty($this->items))
+{
+    $saveOrderingUrl = 'index.php?option=com_companypartners&task=partners.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+	HTMLHelper::_('draggablelist.draggable');
+}
 
 ?>
 
@@ -25,70 +39,104 @@ $assoc = Associations::isEnabled();
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
+                <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
 				<?php if (empty($this->items)) : ?>
                     <div class="alert alert-warning">
 						<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
 				<?php else : ?>
                     <table class="table" id="partnerList">
+                        <caption id="captionTable" class="sr-only">
+                            <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_CAPTION'); ?>, <?php echo Text::_('JGLOBAL_SORTED_BY'); ?>
+                        </caption>
                         <thead>
                         <tr>
                             <td style="width:1%" class="text-center">
 								<?php echo HTMLHelper::_('grid.checkall'); ?>
                             </td>
-                            <th scope="col" style="width:1%; min-width:85px" class="text-center">
-		                        <?php echo TEXT::_('JSTATUS'); ?>
+
+                            <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
+		                        <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
                             </th>
+
+                            <th scope="col" style="width: 1%; min-width: 85px" class="text-center">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS','a.published', $listDirn, $listOrder) ?>
+                            </th>
+
                             <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
-								<?php echo Text::_('COM_COMPANYPARTNERS_TABLE_TABLEHEAD_NAME'); ?>
+								<?php echo HTMLHelper::_('searchtools.sort', 'COM_COMPANYPARTNERS_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
                             </th>
+
                             <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
 		                        <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_TABLEHEAD_CATEGORIES'); ?>
                             </th>
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-								<?php echo TEXT::_('JGRID_HEADING_ACCESS') ?>
+								<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ACCESS','access_level', $listDirn, $listOrder) ?>
                             </th>
 							<?php if ($assoc) : ?>
                                 <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-									<?php echo Text::_('COM_COMPANYPARTNERS_HEADING_ASSOCIATION'); ?>
+	                                <?php echo HTMLHelper::_('searchtools.sort', 'COM_COMPANYPARTNERS_HEADING_ASSOCIATION','association', $listDirn, $listOrder) ?>
                                 </th>
 							<?php endif; ?>
 							<?php if (Multilanguage::isEnabled()) : ?>
                                 <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-									<?php echo Text::_('JGRID_HEADING_LANGUAGE'); ?>
+	                                <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE','language', $listDirn, $listOrder) ?>
                                 </th>
 							<?php endif; ?>
                             <th scope="col">
-								<?php echo Text::_('COM_COMPANYPARTNERS_TABLE_TABLEHEAD_ID'); ?>
+	                            <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID','a.id', $listDirn, $listOrder) ?>
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody <?php if ($saveOrder) :
+	                        ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="false"<?php
+                        endif; ?>>
 						<?php
 						$n = count($this->items);
 						foreach ($this->items as $i => $item) :?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="text-center">
-									<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
+		                            <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                 </td>
                                 <td class="text-center">
+	                                <?php
+	                                $iconClass = '';
+	                                if (!$canChange) {
+		                                $iconClass = ' inactive';
+	                                } elseif (!$saveOrder) {
+		                                $iconClass = ' inactive" title="' . Text::_('JORDERINGDISABLED');
+	                                }
+	                                ?>
+                                    <span class="sortable-handler<?php echo $iconClass ?>">
+                                        <span class="icon-ellipsis-v" aria-hidden="true"></span>
+                                    </span>
+	                                <?php if ($canChange && $saveOrder) : ?>
+                                        <input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order hidden">
+	                                <?php endif; ?>
+                                </td>
+
+                                <td class="text-center">
 		                            <?php
-		                            echo HTMLHelper::_('jgrid.published', $item->published, $i, 'partners.', true, 'cb', $item->publish_up, $item->publish_down);
+		                            echo HTMLHelper::_('jgrid.published', $item->published, $i, 'partners.', $canChange , 'cb', $item->publish_up, $item->publish_down);
 		                            ?>
                                 </td>
                                 <th scope="row" class="has-context">
                                     <div style="display:none">
-										<?php echo $this->escape($item->name); ?>
+										<?php echo $this->escape($item->title); ?>
                                     </div>
                                     <a class="hasTooltip"
                                        href="<?php echo Route::_('index.php?option=com_companypartners&task=partner.edit&id=' . (int) $item->id); ?>"
-                                       title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->name)); ?>">
-										<?php echo $editIcon; ?><?php echo $this->escape($item->name); ?>
+                                       title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
+										<?php echo $editIcon; ?><?php echo $this->escape($item->title); ?>
                                     </a>
+                                    <div class="small">
+	                                    <span class=""><?php echo Text::_('JGLOBAL_LIST_ALIAS') . ': ' . $this->escape($item->alias); ?></span>
+	                                    <span><?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?></span>
+                                    </div>
                                 </th>
                                 <td class="small d-none d-md-table-cell">
-	                                <?php foreach ($item->categories as $category) : ?>
-                                        <span class="badge bg-primary" style="font-weight: 400; margin-bottom:5px;"><?php echo $this->escape($category->title); ?></span>
+	                                <?php foreach ($item->groups as $group) : ?>
+                                        <span class="badge bg-primary" style="font-weight: 400; margin-bottom:5px;"><?php echo $this->escape($group->title); ?></span>
 	                                <?php endforeach; ?>
                                 </td>
 

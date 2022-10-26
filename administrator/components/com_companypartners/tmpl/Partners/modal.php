@@ -35,6 +35,9 @@ $onclick   = $this->escape($function);
             <table class="table table-sm">
                 <thead>
                 <tr>
+                    <caption class="visually-hidden">
+                        <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_CAPTION'); ?>, <?php echo Text::_('JGLOBAL_SORTED_BY'); ?>
+                    </caption>
                     <th scope="col" style="width:10%" class="d-none d-md-table-cell">
                     </th>
                     <th scope="col" style="width:1%">
@@ -54,8 +57,8 @@ $onclick   = $this->escape($function);
                     <?php $lang = ''; ?>
                     <tr class="row<?php echo $i % 2; ?>">
                         <th scope="row">
-                            <a class="select-link" href="javascript:void(0)" data-function="<?php echo $this->escape($onclick); ?>" data-id="<?php echo $item->id; ?>" data-title="<?php echo $this->escape($item->name); ?>">
-                                <?php echo $this->escape($item->name); ?>
+                            <a class="select-link" href="javascript:void(0)" data-function="<?php echo $this->escape($onclick); ?>" data-id="<?php echo $item->id; ?>" data-title="<?php echo $this->escape($item->title); ?>">
+                                <?php echo $this->escape($item->title); ?>
                             </a>
                         </th>
                         <td>

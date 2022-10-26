@@ -13,6 +13,7 @@ namespace NXD\Component\Companypartners\Administrator\Table;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseDriver;
 
 /**
@@ -46,17 +47,41 @@ class PartnerTable extends Table
     public function generateAlias()
     {
         if (empty($this->alias)) {
-            $this->alias = $this->name;
+            $this->alias = $this->title;
         }
 
         $this->alias = ApplicationHelper::stringURLSafe($this->alias, $this->language);
 
         if (trim(str_replace('-', '', $this->alias)) == '') {
-            $this->alias = Factory::getDate()->format('Y-m-d-H-i-s');
+            $this->alias = 'partner_' . Factory::getDate()->format('Y-m-d-H-i-s');
         }
+	    $this->alias = $this->createValidAlias($this->alias);
 
         return $this->alias;
     }
+
+	private function createValidAlias($alias){
+		if($count = $this->checkIfAliasExists($alias)){
+			$count++;
+			$alias .= '-' . $count;
+		};
+		if($this->checkIfAliasExists($alias)){
+			$alias = $this->createValidAlias($alias);
+		}
+		return $alias;
+	}
+
+	private function checkIfAliasExists($alias){
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select('COUNT(*)')
+			->from($db->quoteName('#__companypartners_partners'))
+			->where($db->quoteName('alias') . ' = ' . $db->quote($alias));
+		$db->setQuery($query);
+		$result = $db->loadResult();
+		error_log($result);
+		return false;
+	}
 
     public function check()
     {

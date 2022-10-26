@@ -24,7 +24,8 @@ use Joomla\Utilities\ArrayHelper;
  */
 class PartnersModel extends ListModel
 {
-	private $categories = null;
+	private $groups = null;
+
     /**
      * Constructor.
      *
@@ -36,9 +37,27 @@ class PartnersModel extends ListModel
      */
     public function __construct($config = [])
     {
+		if(empty($config['filter_fields'])){
+			$config['filter_fields'] = array(
+				'id', 'a.id',
+				'title', 'a.title',
+				'catid', 'a.catid', 'category_title',
+				'published', 'a.published',
+				'access', 'a.access', 'access_level',
+				'ordering', 'a.ordering',
+				'language', 'a.language',
+				'publish_up', 'a.publish_up',
+				'publish_down', 'a.publish_down'
+			);
+
+			$assoc = Associations::isEnabled();
+			if ($assoc) {
+				$config['filter_fields'][] = 'association';
+			}
+		}
 
         parent::__construct($config);
-	    $this->categories = $this->getAllCategories();
+	    $this->groups = $this->getAllGroups();
     }
     /**
      * Build an SQL query to load the list data.
@@ -57,9 +76,9 @@ class PartnersModel extends ListModel
         $query->select(
             $db->quoteName(
 				[
-					'a.id', 'a.name', 'a.alias', 'a.access',
-					'a.catid','a.categories','a.published', 'a.publish_up', 'a.publish_down',
-					'a.language'
+					'a.id', 'a.title', 'a.alias', 'a.access',
+					'a.catid','a.groups','a.published', 'a.publish_up', 'a.publish_down',
+					'a.language', 'a.ordering', 'a.state'
 				]
             )
         );
@@ -71,6 +90,12 @@ class PartnersModel extends ListModel
 			    'LEFT',
 			    $db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
 		    );
+
+		// Join over the category.
+	    $query->select($db->quoteName('c.title', 'category_title'))->join(
+		    'LEFT',
+		    $db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
+	    );
 
 	    // Join over the language
 	    $query->select($db->quoteName('l.title', 'language_title'))
@@ -99,6 +124,49 @@ class PartnersModel extends ListModel
 	    if($language = $this->getState('filter.language')){
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
 	    }
+
+		// Filter by access level.
+        if ($access = $this->getState('filter.access')) {
+			$query->where($db->quoteName('a.access') . ' = ' . (int) $access);
+        }
+
+		// Filter by published state
+	    $published = $this->getState('filter.published');
+		if (is_numeric($published)) {
+			$query->where($db->quoteName('a.published') . ' = ' . (int) $published);
+		} elseif ($published === '') {
+			$query->where('(' . $db->quoteName('a.published') . ' IN (0, 1))');
+		}
+
+		// Filter by a single or group of categories.
+	    $categoryId = $this->getState('filter.category_id');
+		if (is_numeric($categoryId)) {
+			$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+		} elseif (is_array($categoryId)) {
+			$categoryId = ArrayHelper::toInteger($categoryId);
+			$categoryId = implode(',', $categoryId);
+			$query->where($db->quoteName('a.catid') . ' IN (' . $categoryId . ')');
+		}
+
+		// Filter by search name
+	    $search = $this->getState('filter.search');
+		if (!empty($search)) {
+			if (stripos($search, 'id:') === 0) {
+				$query->where($db->quoteName('a.id') . ' = ' . (int) substr($search, 3));
+			} else {
+				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
+				$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $search . ')');
+			}
+		}
+
+		// Add the list ordering clause.
+        $orderCol = $this->state->get('list.ordering', 'a.title');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		if ($orderCol === 'a.ordering' || $orderCol === 'category_title') {
+			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
+		}
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
     }
@@ -136,34 +204,33 @@ class PartnersModel extends ListModel
 	{
 		$items = parent::getItems();
 
-		echo '<pre>' . var_export($this->categories, true) . '</pre>';
+		echo '<pre>' . var_export($this->groups, true) . '</pre>';
 		foreach($items as $item){
-			$item->categories = self::mapCategories($item->categories);
+			$item->groups = self::mapGroups($item->groups);
 		}
 
 		return $items;
 	}
 
-	private function getAllCategories(){
+	private function getAllGroups(){
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
 		$query->select(array('id','alias','title'));
-		$query->from($db->quoteName('#__categories'));
-		$query->where($db->quoteName('extension') . ' = ' . $db->quote('com_companypartners'));
+		$query->from($db->quoteName('#__companypartners_groups'));
 		$db->setQuery($query);
 
 		return $db->loadObjectList('id');
 	}
 
-	private function mapCategories($categories){
-		$categories = explode(',', $categories);
-		$categoryObjects = array();
-		foreach($categories as $category){
-			if(isset($this->categories[$category])){
-				$categoryObjects[] = $this->categories[$category];
+	private function mapGroups($itemGroupIds){
+		$itemGroupIds = explode(',', $itemGroupIds);
+		$groups       = array();
+		foreach($itemGroupIds as $itemGroupId){
+			if(isset($this->groups[$itemGroupId])){
+				$groups[] = $this->groups[$itemGroupId];
 			}
 		}
 
-		return $categoryObjects;
+		return $groups;
 	}
 }

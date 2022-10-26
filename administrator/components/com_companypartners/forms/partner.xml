@@ -22,7 +22,7 @@
             <option value="*">JALL</option>
         </field>
         <field
-                name="name"
+                name="title"
                 type="text"
                 validate=""
                 class=""
@@ -71,16 +71,31 @@
                 filter="user_utc"
         />
         <field
-                name="categories"
+                name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
                 extension="com_companypartners"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
-                multiple="true"
+                multiple="false"
                 default=""
         />
-
+        <field
+                name="groups"
+                type="companygroups"
+                label="COM_COMPANYPARTNERS_FIELD_GROUPS_LABEL"
+                description="COM_COMPANYPARTNERS_FIELD_GROUPS_DESC"
+                multiple="true"
+        >
+            <option value="1">Foo</option>
+            <option value="2">Bar</option>
+        </field>
+        <field
+                name="ordering"
+                type="ordering"
+                label="JFIELD_ORDERING_LABEL"
+                content_type="com_companypartners.partner"
+        />
         <field
                 name="access"
                 type="accesslevel"
