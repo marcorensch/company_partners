@@ -36,7 +36,8 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_companypartners&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="partner-form" class="form-validate">
-    <div>
+	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
+    <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'details']); ?>
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', empty($this->item->id) ? Text::_('COM_COMPANYPARTNERS_NEW_PARTNER') : Text::_('COM_COMPANYPARTNERS_EDIT_PARTNER')); ?>
         <div class="row">
@@ -45,8 +46,6 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 	                <div class="col-md-8">
                         <div class="row">
 		                <?php echo $this->getForm()->renderField('id'); ?>
-		                <?php echo $this->getForm()->renderField('title'); ?>
-		                <?php echo $this->getForm()->renderField('alias'); ?>
 		                <?php echo $this->getForm()->renderField('catid'); ?>
 		                <?php echo $this->getForm()->renderField('groups'); ?>
                         </div>

@@ -173,16 +173,19 @@ class PartnerModel extends AdminModel
 
 	public function save($data)
 	{
-		$this->itemGroupIds = $data['groups'];
-		if(is_null($this->itemGroupIds)){
+		if(is_null($data['groups'])){
 			$this->itemGroupIds = array();
+			$data['groups'] = '';
+		}else{
+			$this->itemGroupIds = $data['groups'];
+			$data['groups']	= implode(",", $data['groups']);
 		}
 
-		$data['groups']	= implode(",", $data['groups']);
+
 
 		if (parent::save($data))
 		{
-			$this->itemId       = $this->getState($this->getName() . '.id');
+			$this->itemId = $this->getState($this->getName() . '.id');
 			if ($this->updateItemGroups())
 			{
 				return true;
