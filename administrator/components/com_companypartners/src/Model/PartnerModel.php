@@ -180,8 +180,6 @@ class PartnerModel extends AdminModel
 
 		$data['groups']	= implode(",", $data['groups']);
 
-		Factory::getApplication()->enqueueMessage("Groups: " . var_export($this->itemGroupIds,1));
-
 		if (parent::save($data))
 		{
 			$this->itemId       = $this->getState($this->getName() . '.id');
@@ -256,7 +254,6 @@ class PartnerModel extends AdminModel
 
 	private function deleteItemGroups(): bool
 	{
-		Factory::getApplication()->enqueueMessage("Delete: " . var_export($this->itemGroupsFromDb,1));
 		try
 		{
 			if (count($this->itemGroupsFromDb) > 0)

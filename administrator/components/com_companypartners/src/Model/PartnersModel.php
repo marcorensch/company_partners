@@ -159,14 +159,15 @@ class PartnersModel extends ListModel
 			}
 		}
 
-		// Add the list ordering clause.
-        $orderCol = $this->state->get('list.ordering', 'a.title');
-		$orderDirn = $this->state->get('list.direction', 'asc');
+	    // Add the list ordering clause.
+	    $orderCol = $this->state->get('list.ordering', 'a.title');
+	    $orderDirn = $this->state->get('list.direction', 'asc');
 
-		if ($orderCol === 'a.ordering' || $orderCol === 'category_title') {
-			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
-		}
-		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+	    if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
+	    {
+		    $orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
+	    }
+	    $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
     }
@@ -204,7 +205,6 @@ class PartnersModel extends ListModel
 	{
 		$items = parent::getItems();
 
-		echo '<pre>' . var_export($this->groups, true) . '</pre>';
 		foreach($items as $item){
 			$item->groups = self::mapGroups($item->groups);
 		}

@@ -22,7 +22,7 @@ $wa->useScript('table.columns');
 $canChange = true;
 $assoc = Associations::isEnabled();
 $listOrder = $this->escape($this->state->get('list.ordering'));
-$listDirn = $this->escape($this->state->get('list.direction'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
 $saveOrder = $listOrder === 'a.ordering';
 
 if ($saveOrder && !empty($this->items))
@@ -46,8 +46,10 @@ if ($saveOrder && !empty($this->items))
                     </div>
 				<?php else : ?>
                     <table class="table" id="partnerList">
-                        <caption id="captionTable" class="sr-only">
-                            <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_CAPTION'); ?>, <?php echo Text::_('JGLOBAL_SORTED_BY'); ?>
+                        <caption class="visually-hidden">
+		                    <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_CAPTION'); ?>,
+                            <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
+                            <span id="filteredBy"><?php echo Text::_('JGLOBAL_FILTERED_BY'); ?></span>
                         </caption>
                         <thead>
                         <tr>
@@ -56,7 +58,7 @@ if ($saveOrder && !empty($this->items))
                             </td>
 
                             <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
-		                        <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
+	                            <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-sort'); ?>
                             </th>
 
                             <th scope="col" style="width: 1%; min-width: 85px" class="text-center">
@@ -68,7 +70,7 @@ if ($saveOrder && !empty($this->items))
                             </th>
 
                             <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
-		                        <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_TABLEHEAD_CATEGORIES'); ?>
+		                        <?php echo Text::_('COM_COMPANYPARTNERS_TABLE_TABLEHEAD_GROUPS'); ?>
                             </th>
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ACCESS','access_level', $listDirn, $listOrder) ?>
@@ -89,30 +91,34 @@ if ($saveOrder && !empty($this->items))
                         </tr>
                         </thead>
                         <tbody <?php if ($saveOrder) :
-	                        ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="false"<?php
+	                        ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="true"<?php
                         endif; ?>>
 						<?php
 						$n = count($this->items);
-						foreach ($this->items as $i => $item) :?>
-                            <tr class="row<?php echo $i % 2; ?>">
+						foreach ($this->items as $i => $item) :
+							$ordering  = ($listOrder == 'ordering');
+							$item->cat_link = Route::_('index.php?option=com_categories&extension=com_companypartners&task=edit&type=other&cid[]=' . $item->catid);
+                            ?>
+                            <tr class="row<?php echo $i % 2; ?>" data-draggable-group="<?php echo $item->catid; ?>">
                                 <td class="text-center">
 		                            <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                 </td>
-                                <td class="text-center">
-	                                <?php
-	                                $iconClass = '';
-	                                if (!$canChange) {
-		                                $iconClass = ' inactive';
-	                                } elseif (!$saveOrder) {
-		                                $iconClass = ' inactive" title="' . Text::_('JORDERINGDISABLED');
-	                                }
-	                                ?>
-                                    <span class="sortable-handler<?php echo $iconClass ?>">
-                                        <span class="icon-ellipsis-v" aria-hidden="true"></span>
-                                    </span>
-	                                <?php if ($canChange && $saveOrder) : ?>
-                                        <input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order hidden">
-	                                <?php endif; ?>
+                                <td class="text-center d-none d-md-table-cell">
+		                            <?php
+		                            $iconClass = '';
+		                            if (!$canChange) {
+			                            $iconClass = ' inactive';
+		                            } elseif (!$saveOrder) {
+			                            $iconClass = ' inactive" title="' . Text::_('JORDERINGDISABLED');
+		                            }
+		                            ?>
+                                    <span class="sortable-handler <?php echo $iconClass ?>">
+                                            <span class="icon-ellipsis-v" aria-hidden="true"></span>
+                                        </span>
+		                            <?php if ($canChange && $saveOrder) : ?>
+                                        <input type="text" name="order[]" size="5"
+                                               value="<?php echo $item->ordering; ?>" class="width-20 text-area-order hidden">
+		                            <?php endif; ?>
                                 </td>
 
                                 <td class="text-center">
@@ -130,7 +136,7 @@ if ($saveOrder && !empty($this->items))
 										<?php echo $editIcon; ?><?php echo $this->escape($item->title); ?>
                                     </a>
                                     <div class="small">
-	                                    <span class=""><?php echo Text::_('JGLOBAL_LIST_ALIAS') . ': ' . $this->escape($item->alias); ?></span>
+	                                    <span><?php echo Text::_('JALIAS') . ': ' . $this->escape($item->alias); ?></span><br />
 	                                    <span><?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?></span>
                                     </div>
                                 </th>
@@ -165,7 +171,7 @@ if ($saveOrder && !empty($this->items))
 				<?php endif; ?>
                 <input type="hidden" name="task" value="">
                 <input type="hidden" name="boxchecked" value="0">
-				<?php echo HTMLHelper::_('form.token'); ?>
+	            <?php echo HTMLHelper::_('form.token'); ?>
             </div>
         </div>
     </div>
