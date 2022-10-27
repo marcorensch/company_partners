@@ -53,12 +53,19 @@
         </menu>
 
         <submenu>
-            <menu link="option=com_companypartners">
+            <menu link="option=com_companypartners&amp;view=partners">
                 COM_COMPANYPARTNERS_PARTNERS
                 <params>
                     <menu-quicktask-title>COM_COMPANYPARTNERS_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
                     <menu-quicktask>index.php?option=com_companypartners&amp;view=partner&amp;layout=edit</menu-quicktask>
                 </params>
+            </menu>
+            <menu link="option=com_companypartners&amp;view=groups">
+                COM_COMPANYPARTNERS_GROUPS
+<!--                <params>-->
+<!--                    <menu-quicktask-title>COM_COMPANYPARTNERS_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>-->
+<!--                    <menu-quicktask>index.php?option=com_companypartners&amp;view=partner&amp;layout=edit</menu-quicktask>-->
+<!--                </params>-->
             </menu>
             <menu link="option=com_categories&amp;extension=com_companypartners">
                 JCATEGORIES

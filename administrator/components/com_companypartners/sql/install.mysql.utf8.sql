@@ -10,10 +10,18 @@ CREATE TABLE IF NOT EXISTS `#__companypartners_partners`
 
 CREATE TABLE IF NOT EXISTS `#__companypartners_groups`
 (
-    `id`            int(11)                   NOT NULL AUTO_INCREMENT,
-    `title`         varchar(255)              NOT NULL,
-    `alias`         varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
-    `description`   mediumtext                NOT NULL,
+    `id`                int(11)                   NOT NULL AUTO_INCREMENT,
+    `title`             varchar(255)              NOT NULL,
+    `alias`             varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
+    `state`             tinyint(1)                NOT NULL DEFAULT 0,
+    `access`            int(10) unsigned          NOT NULL DEFAULT 0,
+    `language`          char(7)                   NOT NULL DEFAULT '',
+    `description`       mediumtext                NOT NULL,
+    `published`         tinyint(1)                NOT NULL DEFAULT 0,
+    `ordering`          int(11)                   NOT NULL DEFAULT 0,
+    `params`            text                      NOT NULL,
+    `publish_up`        datetime,
+    `publish_down`      datetime,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

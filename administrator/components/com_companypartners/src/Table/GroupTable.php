@@ -23,7 +23,7 @@ use Joomla\Registry\Registry;
  *
  * @since  __BUMP_VERSION__
  */
-class PartnerTable extends Table
+class GroupTable extends Table
 {
     /**
      * Constructor
@@ -34,9 +34,9 @@ class PartnerTable extends Table
      */
     public function __construct(DatabaseDriver $db)
     {
-        $this->typeAlias = 'com_companypartners.partner';
+        $this->typeAlias = 'com_companypartners.group';
 
-        parent::__construct('#__companypartners_partners', 'id', $db);
+        parent::__construct('#__companypartners_groups', 'id', $db);
     }
 
     /**
@@ -77,7 +77,7 @@ class PartnerTable extends Table
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('COUNT(*)')
-			->from($db->quoteName('#__companypartners_partners'))
+			->from($db->quoteName('#__companypartners_groups'))
 			->where($db->quoteName('alias') . ' = ' . $db->quote($alias));
 		$db->setQuery($query);
 		return $db->loadResult();
@@ -85,7 +85,6 @@ class PartnerTable extends Table
 
     public function check()
     {
-
         try {
             parent::check();
         } catch (\Exception $e) {

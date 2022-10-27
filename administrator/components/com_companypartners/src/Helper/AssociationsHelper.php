@@ -39,7 +39,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @since   __BUMP_VERSION__
 	 */
-	protected $itemTypes = ['partner', 'category'];
+	protected $itemTypes = ['partner', 'category', 'group'];
 
 	/**
 	 * Has the extension association support

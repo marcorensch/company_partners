@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\Companypartners\Administrator\View\Partner;
+namespace NXD\Component\Companypartners\Administrator\View\Group;
 
 defined('_JEXEC') or die;
 
@@ -64,8 +64,6 @@ class HtmlView extends BaseHtmlView
 		    $this->form->setFieldAttribute('associations', 'readonly', 'true');
 		    $this->form->setFieldAttribute('associations', 'disabled', 'true');
 
-		    // Only allow to select categories with ALL language or with the forced language.
-		    $this->form->setFieldAttribute('catid', 'language', '*,' . $forcedLanguage);
 	    }
 
         $this->addToolbar();
@@ -90,22 +88,22 @@ class HtmlView extends BaseHtmlView
 	    $toolbar = Toolbar::getInstance();
 
 
-	    ToolbarHelper::title($isNew ? Text::_('COM_COMPANYPARTNERS_MANAGER_PARTNER_NEW') : Text::_('COM_COMPANYPARTNERS_MANAGER_PARTNER_EDIT'), 'address');
+	    ToolbarHelper::title($isNew ? Text::_('COM_COMPANYPARTNERS_MANAGER_GROUP_NEW') : Text::_('COM_COMPANYPARTNERS_MANAGER_GROUP_EDIT'), 'folder');
 
-        $toolbar->apply('partner.apply');
+        $toolbar->apply('group.apply');
 
 	    $saveGroup = $toolbar->dropdownButton('save-group');
 
 	    $saveGroup->configure(
 		    function (Toolbar $childBar) {
-			    $childBar->save('partner.save');
-			    $childBar->save2new('partner.save2new');
-			    $childBar->save2copy('partner.save2copy');
+			    $childBar->save('group.save');
+			    $childBar->save2new('group.save2new');
+			    $childBar->save2copy('group.save2copy');
 		    }
 	    );
 
 //		ToolbarHelper::save('partner.save');
 //		ToolbarHelper::save2new('partner.save2new');
-        $toolbar->cancel('partner.cancel', 'JTOOLBAR_CLOSE');
+        $toolbar->cancel('group.cancel', 'JTOOLBAR_CLOSE');
     }
 }
