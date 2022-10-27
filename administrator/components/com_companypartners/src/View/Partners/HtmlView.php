@@ -39,17 +39,19 @@ class HtmlView extends BaseHtmlView
 	 * @since   1.0.0
 	 */
 	protected $items;
+	protected $pagination;
 	protected $state;
 	public $filterForm;
 	public $activeFilters;
 
+
 	public function display($tpl = null): void
 	{
-		$this->items = $this->get('Items');
-
-		$this->filterForm    = $this->get('FilterForm');
-		$this->activeFilters = $this->get('ActiveFilters');
-		$this->state         = $this->get('State');
+		$this->items            = $this->get('Items');
+		$this->pagination       = $this->get('Pagination');
+		$this->filterForm       = $this->get('FilterForm');
+		$this->activeFilters    = $this->get('ActiveFilters');
+		$this->state            = $this->get('State');
 
 		if (count($errors = $this->get('Errors')))
 		{
