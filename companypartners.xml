@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <extension type="component" method="upgrade">
-    <name>COM_COMPANYPARTNERS</name>
+    <name>Company Partners</name>
     <creationDate>August 2022</creationDate>
     <author>nx-designs | Marco Rensch</author>
     <authorEmail>suport@nx-designs.ch</authorEmail>
@@ -45,10 +45,28 @@
     <!-- Back-end files -->
     <administration>
         <!-- Menu entries -->
-        <menu view="partners">COM_COMPANYPARTNERS</menu>
+        <menu img="class:comment">
+            COM_COMPANYPARTNERS
+            <params>
+                <dashboard>companypartners</dashboard>
+            </params>
+        </menu>
+
         <submenu>
-            <menu link="option=com_companypartners">COM_COMPANYPARTNERS_PARTNERS</menu>
-            <menu link="option=com_categories&amp;extension=com_companypartners">JCATEGORIES</menu>
+            <menu link="option=com_companypartners">
+                COM_COMPANYPARTNERS_PARTNERS
+                <params>
+                    <menu-quicktask-title>COM_COMPANYPARTNERS_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_companypartners&amp;view=partner&amp;layout=edit</menu-quicktask>
+                </params>
+            </menu>
+            <menu link="option=com_categories&amp;extension=com_companypartners">
+                JCATEGORIES
+                <params>
+                    <menu-quicktask-title>JCATEGORY</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_categories&amp;view=category&amp;layout=edit&amp;extension=com_companypartners</menu-quicktask>
+                </params>
+            </menu>
             <menu link="option=com_fields&amp;context=com_companypartners.partner">JGLOBAL_FIELDS</menu>
             <menu link="option=com_fields&amp;view=groups&amp;context=com_companypartners.partner">JGLOBAL_FIELD_GROUPS</menu>
         </submenu>
@@ -60,6 +78,7 @@
             <folder>services</folder>
             <folder>sql</folder>
             <folder>forms</folder>
+            <folder>presets</folder>
             <folder>language</folder>
             <folder>src</folder>
             <folder>tmpl</folder>

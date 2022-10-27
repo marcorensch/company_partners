@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<menu
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="urn:joomla.org"
+        xsi:schemaLocation="urn:joomla.org menu.xsd"
+>
+    <menuitem
+            title="COM_COMPANYPARTNERS"
+            type="heading"
+            icon="comment"
+            class="class:"
+    >
+        <menuitem
+                title="COM_COMPANYPARTNERS_PARTNERS"
+                type="component"
+                element="com_companypartners"
+                link="index.php?option=com_companypartners"
+                quicktask="index.php?option=com_companypartners&amp;view=partner&amp;layout=edit"
+                quicktask-title="COM_COMPANYPARTNERS_NEW_PARTNER"
+        />
+        <menuitem
+                title="JCATEGORIES"
+                type="component"
+                element="com_companypartners"
+                link="index.php?option=com_categories&amp;extension=com_companypartners"
+                quicktask="index.php?option=com_categories&amp;view=category&amp;layout=edit&amp;extension=com_companypartners"
+                quicktask-title="COM_COMPANYPARTNERS_NEW_CATEGORY"
+        />
+    </menuitem>
+
+</menu>
