@@ -19,6 +19,14 @@
                 quicktask-title="COM_COMPANYPARTNERS_NEW_PARTNER"
         />
         <menuitem
+                title="COM_COMPANYPARTNERS_GROUPS"
+                type="component"
+                element="com_companypartners"
+                link="index.php?option=com_companypartners&amp;view=groups"
+                quicktask="index.php?option=com_companypartners&amp;view=groups&amp;layout=edit"
+                quicktask-title="COM_COMPANYPARTNERS_NEW_GROUP"
+        />
+        <menuitem
                 title="JCATEGORIES"
                 type="component"
                 element="com_companypartners"
