@@ -39,6 +39,7 @@
 
     <media folder="media/com_companypartners" destination="com_companypartners">
         <folder>js</folder>
+        <folder>css</folder>
         <filename>joomla.asset.json</filename>
     </media>
 

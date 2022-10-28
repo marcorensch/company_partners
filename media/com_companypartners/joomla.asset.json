@@ -26,6 +26,24 @@
       "attributes": {
         "defer": true
       }
+    },
+    {
+      "name": "com_companypartners.uikitjs",
+      "type": "script",
+      "uri": "com_companypartners/uikit.min.js",
+      "attributes": {
+        "defer": false
+      }
+    },
+    {
+      "name": "com_companypartners.uikitcss",
+      "type": "style",
+      "uri": "com_companypartners/uikit.min.css"
+    },
+    {
+      "name": "com_companypartners.main",
+      "type": "style",
+      "uri": "com_companypartners/main.css"
     }
   ]
 }
