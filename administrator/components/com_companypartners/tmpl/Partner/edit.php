@@ -48,6 +48,10 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 		                <?php echo $this->getForm()->renderField('id'); ?>
 		                <?php echo $this->getForm()->renderField('catid'); ?>
 		                <?php echo $this->getForm()->renderField('groups'); ?>
+                        <hr>
+		                <?php echo $this->getForm()->renderField('web'); ?>
+		                <?php echo $this->getForm()->renderField('email'); ?>
+		                <?php echo $this->getForm()->renderField('phone'); ?>
                         </div>
                     </div>
                 </div>

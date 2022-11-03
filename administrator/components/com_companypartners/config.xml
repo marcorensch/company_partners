@@ -4,15 +4,6 @@
               label="COM_COMPANYPARTNERS_FIELD_CONFIG_INDIVIDUAL_PARTNER_DISPLAY"
               description="COM_COMPANYPARTNERS_FIELD_CONFIG_INDIVIDUAL_PARTNER_DESC"
     >
-        <field name="show_partner_name_label"
-               type="radio"
-               class="btn-group btn-group-yesno"
-               label="COM_COMPANYPARTNERS_FIELD_PARTNER_SHOW_CATEGORY_LABEL"
-               default="1"
-        >
-            <option value="0">JNO</option>
-            <option value="1">JYES</option>
-        </field>
         <field name="custom_fields_enable"
                type="radio"
                label="JGLOBAL_CUSTOM_FIELDS_ENABLE_LABEL"
@@ -23,14 +14,14 @@
             <option value="1">JYES</option>
         </field>
         <field
-                name="show_name"
+                name="load_uikit"
                 type="radio"
-                label="COM_COMPANYPARTNERS_FIELD_PARAMS_NAME_LABEL"
+                label="COM_COMPANYPARTNERS_FIELD_PARAMS_LOAD_UIKIT_LABEL"
                 default="1"
                 layout="joomla.form.field.radio.switcher"
         >
-            <option value="0">JHIDE</option>
-            <option value="1">JSHOW</option>
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
         </field>
     </fieldset>
     <fieldset name="permissions"

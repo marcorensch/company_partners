@@ -36,6 +36,14 @@
       }
     },
     {
+      "name": "com_companypartners.uikitIconsjs",
+      "type": "script",
+      "uri": "com_companypartners/uikit-icons.min.js",
+      "attributes": {
+        "defer": false
+      }
+    },
+    {
       "name": "com_companypartners.uikitcss",
       "type": "style",
       "uri": "com_companypartners/uikit.min.css"

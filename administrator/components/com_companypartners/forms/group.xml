@@ -94,17 +94,4 @@
                 size="1"
         />
     </fieldset>
-    <fields name="params" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-        <fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-            <field
-                    name="show_name"
-                    type="list"
-                    label="COM_COMPANYPARTNERS_FIELD_PARAMS_NAME_LABEL"
-                    useglobal="true"
-            >
-                <option value="0">JHIDE</option>
-                <option value="1">JSHOW</option>
-            </field>
-        </fieldset>
-    </fields>
 </form>

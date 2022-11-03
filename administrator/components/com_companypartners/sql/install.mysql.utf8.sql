@@ -52,3 +52,8 @@ ALTER TABLE `#__companypartners_partners` ADD KEY `idx_language` (`language`);
 ALTER TABLE `#__companypartners_partners` ADD COLUMN `groups` varchar(255) NOT NULL DEFAULT '' AFTER `title`;
 ALTER TABLE `#__companypartners_partners` ADD COLUMN `ordering` INT( 11 ) NOT NULL DEFAULT 0 AFTER `alias`;
 ALTER TABLE `#__companypartners_partners` ADD COLUMN  `params` text NOT NULL AFTER `alias`;
+ALTER TABLE `#__companypartners_partners` ADD COLUMN  `web` varchar(100) NOT NULL DEFAULT '' AFTER `alias`;
+ALTER TABLE `#__companypartners_partners` ADD COLUMN  `email` varchar(100) NOT NULL DEFAULT '' AFTER `web`;
+ALTER TABLE `#__companypartners_partners` ADD COLUMN  `phone` varchar(50) NOT NULL DEFAULT '' AFTER `email`;
+ALTER TABLE `#__companypartners_partners` ADD COLUMN  `logo` varchar(255) NOT NULL DEFAULT '' AFTER `alias`;
+ALTER TABLE `#__companypartners_partners` ADD COLUMN  `image` varchar(255) NOT NULL DEFAULT '' AFTER `logo`;

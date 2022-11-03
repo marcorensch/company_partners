@@ -116,6 +116,8 @@ class PartnerTable extends Table
 	    if (is_array($this->params)) {
 		    $registry = new Registry($this->params);
 		    $this->params = (string) $registry;
+	    }else{
+			$this->params = '';
 	    }
 
 	    return parent::store($updateNulls);

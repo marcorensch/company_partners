@@ -46,37 +46,49 @@ class PartnersModel extends BaseDatabaseModel
 	public function getItems()
 	{
 		$app = Factory::getApplication();
-		$pk = $app->input->getInt('id');
+		$pk  = $app->input->getInt('id');
 
-		if ($this->_items === null) {
+		$categories_filter = Factory::getApplication()->getParams()->get('category_filter');
+
+		if ($this->_items === null)
+		{
 			$this->_items = [];
 		}
 
-		if (!isset($this->_items[$pk])) {
-			try {
-				$db = $this->getDbo();
+		if (!isset($this->_items[$pk]))
+		{
+			try
+			{
+				$db    = $this->getDbo();
 				$query = $db->getQuery(true);
 
 				$query->select(array('a.*', 'c.title AS category_title'))
 					->from($db->quoteName('#__companypartners_partners', 'a'))
-					->where('a.published = 1')
-					->join(
-						'LEFT',
-						$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
-					)
+					->where('a.published = 1');
+				if ($categories_filter)
+				{
+					$query->where('a.catid IN (' . implode(',', $categories_filter) . ')');
+				}
+				$query->join(
+					'LEFT',
+					$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
+				)
 					->order('a.ordering ASC');
 
 				$db->setQuery($query);
-				$data = $db->loadObjectList();
+				$partners = $db->loadObjectList();
 
-				if (empty($data)) {
-					return null;
+				if (empty($partners))
+				{
+					return [];
 				}
 
-				$this->setFilters($data);
+				$this->setFilters($partners);
 
-				$this->_items[$pk] = $data;
-			} catch (\Exception $e) {
+				$this->_items[$pk] = $partners;
+			}
+			catch (\Exception $e)
+			{
 				$this->setError($e->getMessage());
 
 				return false;
@@ -88,7 +100,7 @@ class PartnersModel extends BaseDatabaseModel
 
 	private function getAllGroups()
 	{
-		$db = $this->getDbo();
+		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
 		$query->select("a.*")
 			->from($db->quoteName('#__companypartners_groups', 'a'))
@@ -97,7 +109,8 @@ class PartnersModel extends BaseDatabaseModel
 		$db->setQuery($query);
 		$data = $db->loadObjectList('id');
 
-		foreach ($data as $group) {
+		foreach ($data as $group)
+		{
 			$group->itemsCount = 0;
 		}
 
@@ -109,16 +122,20 @@ class PartnersModel extends BaseDatabaseModel
 		return $this->_groups;
 	}
 
-	private function setFilters(&$data)
+	private function setFilters(&$partners)
 	{
-		foreach ($data as $key => $item)
+		foreach ($partners as $key => $partner)
 		{
-			$data[$key]->filters = array();
-			$groups = explode(',', $item->groups);
+			$partner->filters = array();
+			$groups           = explode(',', $partner->groups);
 			foreach ($groups as $group)
 			{
-				$data[$key]->filters[] = $this->_groups[$group]->alias;
-				$this->_groups[$group]->itemsCount++;
+				if (array_key_exists($group, $this->_groups))
+				{
+					$partner->filters[] = $this->_groups[$group]->alias;
+					$this->_groups[$group]->itemsCount++;
+				}
+
 			}
 		}
 	}

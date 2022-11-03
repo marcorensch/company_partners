@@ -103,18 +103,26 @@
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
         />
+        <field
+                name="web"
+                type="url"
+                label="COM_COMPANYPARTNERS_FIELD_WEB_LABEL"
+                hint="https://www.example.com"
+        />
+        <field
+                name="email"
+                type="email"
+                label="COM_COMPANYPARTNERS_FIELD_EMAIL_LABEL"
+                hint="name@example.com"
+        />
+        <field
+                name="phone"
+                type="text"
+                label="COM_COMPANYPARTNERS_FIELD_PHONE_LABEL"
+                hint="1234567890"
+        />
     </fieldset>
-    <fields name="params" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-        <fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-            <field
-                    name="show_name"
-                    type="list"
-                    label="COM_COMPANYPARTNERS_FIELD_PARAMS_NAME_LABEL"
-                    useglobal="true"
-            >
-                <option value="0">JHIDE</option>
-                <option value="1">JSHOW</option>
-            </field>
-        </fieldset>
-    </fields>
+    <!--    <fieldset name="params">-->
+    <!--        -->
+    <!--    </fieldset>-->
 </form>

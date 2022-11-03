@@ -173,7 +173,7 @@ class PartnerModel extends AdminModel
 
 	public function save($data)
 	{
-		if(is_null($data['groups'])){
+		if(!array_key_exists('groups',$data) || is_null($data['groups'])){
 			$this->itemGroupIds = array();
 			$data['groups'] = '';
 		}else{
