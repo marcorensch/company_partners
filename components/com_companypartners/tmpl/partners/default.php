@@ -40,17 +40,33 @@ if(!empty($allowedUserGroups)){
 }else{
     $canSeeContactInfo = true;
 }
+
+$filterCls = "";
+switch($params->get('filter_type', 'tabs')){
+    case 'subnav':
+        $filterCls = "uk-subnav";
+        break;
+    case 'subnav-pills':
+        $filterCls = "uk-subnav uk-subnav-pill";
+        break;
+    case 'tabs':
+    default:
+        $filterCls = "uk-tab";
+}
+
+$uikitListCls = 'uk-list-' . $params->get('items_list_type', 'divider') . ' uk-list-' . $params->get('items_list_size', 'large');
+
 ?>
 
 <div class="uk-section <?php echo $containerThemeCls;?>">
 	<div class="nxd-companypartners-list-container">
         <div uk-filter="target: .js-filter">
 
-            <ul class="uk-subnav uk-subnav-pill">
+            <ul class="<?php echo $filterCls;?>">
                 <?php include_once __DIR__ . '/default.filters.php'; ?>
             </ul>
 
-            <ul class="js-filter uk-list uk-list-striped uk-list-large">
+            <ul class="js-filter uk-list <?php echo $uikitListCls;?>">
                 <?php foreach ($this->items as $partner):
 	                include(__DIR__ . '/default.item.php');
                 ?>

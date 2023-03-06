@@ -121,8 +121,7 @@
                 label="COM_COMPANYPARTNERS_FIELD_PHONE_LABEL"
                 hint="1234567890"
         />
+        <field name="params" type="textarea" label="params" description="params" />
+
     </fieldset>
-    <!--    <fieldset name="params">-->
-    <!--        -->
-    <!--    </fieldset>-->
 </form>

@@ -23,6 +23,35 @@
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
+        <field name="filter_type"
+                type="list"
+                label="COM_COMPANYPARTNERS_FIELD_PARAMS_FILTER_TYPE_LABEL"
+                default="tabs"
+                description="COM_COMPANYPARTNERS_FIELD_PARAMS_FILTER_TYPE_DESC"
+        >
+            <option value="tabs">COM_COMPANYPARTNERS_FIELD_CONFIG_FILTER_TYPE_TABS</option>
+            <option value="subnav">COM_COMPANYPARTNERS_FIELD_CONFIG_FILTER_TYPE_SUBNAV</option>
+            <option value="subnav-pills">COM_COMPANYPARTNERS_FIELD_CONFIG_FILTER_TYPE_SUBNAV_PILLS</option>
+        </field>
+        <field name="items_list_type"
+               type="list"
+               label="COM_COMPANYPARTNERS_FIELD_PARAMS_ITEMS_LIST_TYPE_LABEL"
+               default="divider"
+               description="COM_COMPANYPARTNERS_FIELD_PARAMS_ITEMS_LIST_TYPE_DESC"
+        >
+            <option value="divider">COM_COMPANYPARTNERS_FIELD_CONFIG_ITEM_LIST_TYPE_DIVIDER</option>
+            <option value="striped">COM_COMPANYPARTNERS_FIELD_CONFIG_ITEM_LIST_TYPE_STRIPED</option>
+        </field>
+        <field name="items_list_size"
+                type="list"
+                label="COM_COMPANYPARTNERS_FIELD_PARAMS_ITEMS_LIST_SIZE_LABEL"
+                default="medium"
+                description="COM_COMPANYPARTNERS_FIELD_PARAMS_ITEMS_LIST_SIZE_DESC"
+        >
+            <option value="small">COM_COMPANYPARTNERS_FIELD_CONFIG_ITEM_LIST_SIZE_SMALL</option>
+            <option value="medium">COM_COMPANYPARTNERS_FIELD_CONFIG_ITEM_LIST_SIZE_MEDIUM</option>
+            <option value="large">COM_COMPANYPARTNERS_FIELD_CONFIG_ITEM_LIST_SIZE_LARGE</option>
+        </field>
     </fieldset>
     <fieldset name="permissions"
               label="JCONFIG_PERMISSIONS_LABEL"

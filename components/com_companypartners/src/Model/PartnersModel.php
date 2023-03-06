@@ -73,10 +73,11 @@ class PartnersModel extends BaseDatabaseModel
 					'LEFT',
 					$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
 				)
-					->order('a.ordering ASC');
+					->order('a.title ASC');
 
 				$db->setQuery($query);
 				$partners = $db->loadObjectList();
+
 
 				if (empty($partners))
 				{
@@ -94,6 +95,7 @@ class PartnersModel extends BaseDatabaseModel
 				return false;
 			}
 		}
+
 
 		return $this->_items[$pk];
 	}

@@ -93,5 +93,6 @@
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
         />
+        <field name="params" type="textarea" label="params" description="params" />
     </fieldset>
 </form>

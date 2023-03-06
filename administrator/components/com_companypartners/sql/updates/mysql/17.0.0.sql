@@ -1,1 +1,0 @@
-ALTER TABLE `#__companypartners_partners` ADD COLUMN `ordering` INT( 11 ) NOT NULL DEFAULT 0 AFTER `alias`;

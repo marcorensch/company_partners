@@ -17,7 +17,6 @@ $params = Factory::getApplication()->getParams();
 if(is_null($partner)){
     return;
 }
-
 ?>
 
 <li class="partner" data-group="<?php echo implode(" ", $partner->filters);?>">
@@ -49,5 +48,4 @@ if(is_null($partner)){
 			</div>
 		<?php endif;?>
 	</div>
-
 </li>
