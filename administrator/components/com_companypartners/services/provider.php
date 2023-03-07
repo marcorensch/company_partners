@@ -25,7 +25,7 @@ use NXD\Component\Companypartners\Administrator\Helper\AssociationsHelper;
 use Joomla\CMS\Association\AssociationExtensionInterface;
 
 /**
- * The Company Partners service provider.
+ * The Company partners service provider.
  * https://github.com/joomla/joomla-cms/pull/20217
  *
  * @since  1.0.0

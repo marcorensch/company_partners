@@ -18,7 +18,7 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Language\LanguageHelper;
 
 /**
- * Item Model for a Partner.
+ * Item Model for a partner.
  *
  * @since  __BUMP_VERSION__
  */

@@ -17,7 +17,7 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Input\Input;
 
 /**
- * Groups list controller class.
+ * groups list controller class.
  *
  * @since  __BUMP_VERSION__
  */
@@ -51,7 +51,7 @@ class GroupsController extends AdminController
      *
      * @since   __BUMP_VERSION__
      */
-    public function getModel($name = 'Group', $prefix = 'Administrator', $config = ['ignore_request' => true])
+    public function getModel($name = 'group', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {
         return parent::getModel($name, $prefix, $config);
     }

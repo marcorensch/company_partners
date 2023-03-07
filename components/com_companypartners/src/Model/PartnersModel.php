@@ -17,7 +17,7 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 /**
- * Foo model for the Joomla Company Partners component.
+ * Foo model for the Joomla Company partners component.
  *
  * @since  __BUMP_VERSION__
  */

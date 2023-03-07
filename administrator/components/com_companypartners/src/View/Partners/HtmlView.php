@@ -23,7 +23,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Factory;
 
 /**
- * View class for a list of Partners.
+ * View class for a list of partners.
  *
  * @since  __BUMP_VERSION__
  */

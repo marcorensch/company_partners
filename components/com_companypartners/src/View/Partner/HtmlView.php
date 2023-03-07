@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
 /**
- * HTML Partner View class for the Company Partners component
+ * HTML partner View class for the Company partners component
  *
  * @since  __BUMP_VERSION__
  */

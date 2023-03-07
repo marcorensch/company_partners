@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 
 /**
- * HTML Partners View class for the Company Partners component
+ * HTML partners View class for the Company partners component
  *
  * @since  __BUMP_VERSION__
  */
@@ -26,7 +26,7 @@ class HtmlView extends BaseHtmlView
     public function display($tpl = null)
     {
 	    $this->items = $this->get('Items');
-		$this->groups = $this->get('Groups');
+		$this->groups = $this->get('groups');
         return parent::display($tpl);
     }
 }

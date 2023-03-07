@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `#__companypartners_groups`
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
 
-/* Groups Support for Partners implemented normalized */
+/* groups Support for partners implemented normalized */
 CREATE TABLE IF NOT EXISTS `#__companypartners_partner_group`
 (
     `id`         int(11) NOT NULL AUTO_INCREMENT,

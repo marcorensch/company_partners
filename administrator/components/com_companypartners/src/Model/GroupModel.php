@@ -15,7 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 /**
- * Item Model for a Group.
+ * Item Model for a group.
  *
  * @since  __BUMP_VERSION__
  */

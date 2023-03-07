@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 
 /**
- * Company Partners Component Controller
+ * Company partners Component Controller
  *
  * @since  __BUMP_VERSION__
  */

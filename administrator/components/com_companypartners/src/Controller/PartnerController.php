@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\FormController;
 
 /**
- * Controller for a single Partner
+ * Controller for a single partner
  *
  * @since  __BUMP_VERSION__
  */

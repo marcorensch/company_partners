@@ -51,7 +51,7 @@ class PartnersController extends AdminController
      *
      * @since   __BUMP_VERSION__
      */
-    public function getModel($name = 'Partner', $prefix = 'Administrator', $config = ['ignore_request' => true])
+    public function getModel($name = 'partner', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {
         return parent::getModel($name, $prefix, $config);
     }

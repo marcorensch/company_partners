@@ -17,7 +17,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Installer\InstallerScript;
 
 /**
- * Script file of Company Partner Component
+ * Script file of Company partner Component
  *
  * @since  __BUMP_VERSION__
  */

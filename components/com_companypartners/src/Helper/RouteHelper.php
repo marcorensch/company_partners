@@ -50,7 +50,7 @@ abstract class RouteHelper{
 	}
 
 	/**
-	 * Get the URL route for a partner from a partner ID, Partners category ID and language
+	 * Get the URL route for a partner from a partner ID, partners category ID and language
 	 *
 	 * @param   integer  $id        The id of the partner
 	 * @param   integer  $catid     The id of the partner's category

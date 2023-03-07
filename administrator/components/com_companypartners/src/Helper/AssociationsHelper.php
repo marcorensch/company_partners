@@ -17,7 +17,7 @@ use Joomla\CMS\Table\Table;
 use NXD\Component\Companypartners\Site\Helper\AssociationHelper;
 
 /**
- * Partner associations helper.
+ * partner associations helper.
  *
  * @since  __BUMP_VERSION__
  */

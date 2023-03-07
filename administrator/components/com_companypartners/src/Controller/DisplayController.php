@@ -14,7 +14,7 @@ use Exception;
 use Joomla\CMS\MVC\Controller\BaseController;
 
 /**
- * The Company Partners display controller.
+ * The Company partners display controller.
  *
  * @since  1.0.0
  */

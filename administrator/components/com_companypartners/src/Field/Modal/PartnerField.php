@@ -18,7 +18,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
 
 /**
- * Supports a modal Partner picker.
+ * Supports a modal partner picker.
  *
  * @since  __DEPLOY_VERSION__
  */
@@ -68,7 +68,7 @@ class PartnerField extends FormField
             if (!isset($scriptSelect[$this->id])) {
                 $wa->addInlineScript("
 				window.jSelectPartner_" . $this->id . " = function (id, title, object) {
-					window.processModalSelect('Partner', '" . $this->id . "', id, title, '', object);
+					window.processModalSelect('partner', '" . $this->id . "', id, title, '', object);
 				}",
                     [],
                     ['type' => 'module']
